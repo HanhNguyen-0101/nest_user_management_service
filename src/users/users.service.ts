@@ -32,18 +32,6 @@ export class UsersService {
       order: { createdAt: 'DESC' },
       take: itemPerPage,
       skip,
-      select: [
-        'id',
-        'email',
-        'firstName',
-        'lastName',
-        'globalId',
-        'officeCode',
-        'country',
-        'updatedBy',
-        'updatedAt',
-        'createdAt',
-      ],
       relations: {
         updatedByUser: true,
         userRoles: true,

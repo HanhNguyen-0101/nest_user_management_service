@@ -17,6 +17,11 @@ export class AuthController {
     return await this.authService.login(user);
   }
 
+  @MessagePattern({ role: 'item', cmd: 'register_google' })
+  async registerGoogle(@Payload() user: User) {
+    return await this.authService.registerGoogle(user);
+  }
+
   @MessagePattern({ role: 'item', cmd: 'register' })
   async register(@Payload() registerUser: RegisterUserDto) {
     const user = await this.userService.findOneByEmail(registerUser.email);

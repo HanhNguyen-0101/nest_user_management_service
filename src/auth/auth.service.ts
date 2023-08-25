@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { UsersService } from '../users/users.service';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
     private jwtService: JwtService,
   ) {}
 
@@ -16,10 +18,11 @@ export class AuthService {
   }
 
   async register(registerUserDto: RegisterUserDto): Promise<any> {
-    return await this.userService.create({
-      ...registerUserDto,
-      updatedBy: null,
-    });
+    return await this.userRepository.create(registerUserDto);
+  }
+
+  async registerGoogle(registerUser): Promise<any> {
+    return await this.userRepository.save(registerUser);
   }
 
   async getToken(user) {
