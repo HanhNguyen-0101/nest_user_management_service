@@ -10,6 +10,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { UserRole } from '../../user-roles/entities/user-role.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -21,11 +22,6 @@ export class User {
     unique: true,
   })
   email: string;
-
-  @Column({
-    nullable: true,
-  })
-  password: string;
 
   @Column({
     nullable: true,
@@ -79,8 +75,15 @@ export class User {
   })
   country: string;
 
+  @Column({ nullable: true })
+  @Exclude()
+  password?: string;
+
+  @Column({ default: false })
+  isRegisteredWithGoogle: boolean;
+
   @ManyToOne(() => User, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'updatedBy' })
   updatedByUser: User;
