@@ -12,6 +12,7 @@ import { RolePermissionsModule } from './role-permissions/role-permissions.modul
 import { PermissionsModule } from './permissions/permissions.module';
 import { PermissionGroupsModule } from './permission-groups/permission-groups.module';
 import { MenusModule } from './menus/menus.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -24,14 +25,29 @@ import { MenusModule } from './menus/menus.module';
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
-    UsersModule,
-    AuthModule,
-    UserRolesModule,
-    RolesModule,
-    RolePermissionsModule,
-    PermissionsModule,
-    PermissionGroupsModule,
-    MenusModule,
+    // UsersModule,
+    // AuthModule,
+    // UserRolesModule,
+    // RolesModule,
+    // RolePermissionsModule,
+    // PermissionsModule,
+    // PermissionGroupsModule,
+    // MenusModule,
+    ClientsModule.register([
+      {
+        name: 'NOTIFICATION_MICROSERVICE',
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'notification',
+            brokers: ['Nhung-Nguyen:9092'],
+          },
+          consumer: {
+            groupId: 'notification-consumer',
+          },
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],
