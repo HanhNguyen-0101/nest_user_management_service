@@ -3,7 +3,7 @@ import { CreatePermissionGroupDto } from './dto/create-permission-group.dto';
 import { UpdatePermissionGroupDto } from './dto/update-permission-group.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PermissionGroup } from './entities/permission-group.entity';
-import { IsNull, Like, Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { FilterPermissionGroupDto } from './dto/filter-permission-group.dto';
 
 @Injectable()
