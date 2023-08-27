@@ -13,6 +13,7 @@ import { PermissionsModule } from './permissions/permissions.module';
 import { PermissionGroupsModule } from './permission-groups/permission-groups.module';
 import { MenusModule } from './menus/menus.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -25,8 +26,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
-    // UsersModule,
-    // AuthModule,
+    TypeOrmModule.forFeature([User]),
+    UsersModule,
+    AuthModule,
     // UserRolesModule,
     // RolesModule,
     // RolePermissionsModule,

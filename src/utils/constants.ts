@@ -7,11 +7,13 @@ export const jwtConstants = {
 export const requestPatterns = {
   tables: {
     users: 'users',
-    auth: 'auth',
+    auth: 'auth'
   },
   requests: {
     login: 'login',
     register: 'register',
+    ggRegister: 'google.register',
+    ggLogin: 'google.login',
     getAll: 'get_all',
     getOneById: 'get_item',
     getOneByEmail: 'get_item_by_email',

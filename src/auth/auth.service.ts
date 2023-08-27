@@ -4,12 +4,14 @@ import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private userService: UsersService,
     private jwtService: JwtService,
   ) {}
 
@@ -18,14 +20,17 @@ export class AuthService {
   }
 
   async register(registerUserDto: RegisterUserDto): Promise<any> {
-    return await this.userRepository.save(registerUserDto);
+    return await this.userService.create({
+      ...registerUserDto,
+      updatedBy: null,
+    });
   }
 
-  async registerGoogle(registerUser): Promise<any> {
+  async googleRegister(registerUser): Promise<any> {
     return await this.userRepository.save(registerUser);
   }
 
-  async getToken(user) {
+  async googleLogin(user) {
     return await this.generateToken({ id: user.id, email: user.email });
   }
 
