@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { microservicesConstants } from './utils/constants';
 
+const { userManagement } = microservicesConstants;
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -9,10 +11,10 @@ async function bootstrap() {
       transport: Transport.KAFKA,
       options: {
         client: {
-          brokers: ['Nhung-Nguyen:9092'],
+          brokers: userManagement.BROKERS,
         },
         consumer: {
-          groupId: 'user-management-consumer',
+          groupId: userManagement.GROUP_ID,
         },
       },
     },

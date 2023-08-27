@@ -1,9 +1,15 @@
-import { Controller, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus } from '@nestjs/common';
 import { PermissionGroupsService } from './permission-groups.service';
 import { CreatePermissionGroupDto } from './dto/create-permission-group.dto';
 import { UpdatePermissionGroupDto } from './dto/update-permission-group.dto';
 import { FilterPermissionGroupDto } from './dto/filter-permission-group.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { requestPatterns } from 'src/utils/constants';
+import { HttpExceptionCustom } from 'src/utils/httpExceptionCustom';
+
+const { tables, requests } = requestPatterns;
+const { permissionGroups } = tables;
+const { create, getAll, getOneById, remove, update } = requests;
 
 @Controller('permission-groups')
 export class PermissionGroupsController {
@@ -11,50 +17,56 @@ export class PermissionGroupsController {
     private readonly permissionGroupsService: PermissionGroupsService,
   ) {}
 
-  @MessagePattern({ role: 'item', cmd: 'get_permission_groups' })
-  async findAll(@Payload() query: FilterPermissionGroupDto): Promise<any> {
-    return await this.permissionGroupsService.findAll(query);
+  @MessagePattern(`${permissionGroups}.${getAll}`)
+  async findAll(@Payload() query: FilterPermissionGroupDto) {
+    const result = await this.permissionGroupsService.findAll(query);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'get_permission_group' })
-  async findOne(@Payload() id: string): Promise<any> {
+  @MessagePattern(`${permissionGroups}.${getOneById}`)
+  async findOne(@Payload() id: string) {
     const permissionGroup = await this.permissionGroupsService.findOne(id);
     if (!permissionGroup) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'PermissionGroup does not exist!',
         HttpStatus.NOT_FOUND,
-      );
+      ).toString();
     } else {
-      return permissionGroup;
+      return JSON.stringify(permissionGroup);
     }
   }
 
-  @MessagePattern({ role: 'item', cmd: 'create_permission_group' })
-  async create(
-    @Payload() permissionGroup: CreatePermissionGroupDto,
-  ): Promise<any> {
+  @MessagePattern(`${permissionGroups}.${create}`)
+  async create(@Payload() permissionGroup: CreatePermissionGroupDto) {
     const permissionGroupExist =
       await this.permissionGroupsService.findOneByName(permissionGroup.name);
     if (permissionGroupExist) {
-      return new HttpException('Name existed!', HttpStatus.CONFLICT);
+      return new HttpExceptionCustom(
+        'Name existed!',
+        HttpStatus.CONFLICT,
+      ).toString();
     }
 
-    return await this.permissionGroupsService.create(permissionGroup);
+    const result = await this.permissionGroupsService.create(permissionGroup);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'update_permission_group' })
+  @MessagePattern(`${permissionGroups}.${update}`)
   async update(
     @Payload()
     updateData: {
       id: string;
       permissionGroup: UpdatePermissionGroupDto;
     },
-  ): Promise<any> {
+  ) {
     const { id, permissionGroup } = updateData;
     const permissionGroupIdExist =
       await this.permissionGroupsService.findOne(id);
     if (!permissionGroupIdExist) {
-      return new HttpException('Name existed!', HttpStatus.NOT_ACCEPTABLE);
+      return new HttpExceptionCustom(
+        'Name existed!',
+        HttpStatus.NOT_ACCEPTABLE,
+      ).toString();
     }
 
     if (
@@ -64,22 +76,30 @@ export class PermissionGroupsController {
       const permissionGroupNameExist =
         await this.permissionGroupsService.findOneByName(permissionGroup.name);
       if (permissionGroupNameExist) {
-        return new HttpException('Name existed!', HttpStatus.CONFLICT);
+        return new HttpExceptionCustom(
+          'Name existed!',
+          HttpStatus.CONFLICT,
+        ).toString();
       }
     }
 
-    return await this.permissionGroupsService.update(id, permissionGroup);
+    const result = await this.permissionGroupsService.update(
+      id,
+      permissionGroup,
+    );
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'delete_permission_group' })
-  async delete(@Payload() id: string): Promise<any> {
+  @MessagePattern(`${permissionGroups}.${remove}`)
+  async delete(@Payload() id: string) {
     const permissionGroup = await this.permissionGroupsService.findOne(id);
     if (!permissionGroup) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'PermissionGroup does not exist!',
         HttpStatus.NOT_FOUND,
-      );
+      ).toString();
     }
-    return await this.permissionGroupsService.delete(id);
+    const result = await this.permissionGroupsService.delete(id);
+    return JSON.stringify(result);
   }
 }

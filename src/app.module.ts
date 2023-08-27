@@ -14,7 +14,9 @@ import { PermissionGroupsModule } from './permission-groups/permission-groups.mo
 import { MenusModule } from './menus/menus.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { User } from './users/entities/user.entity';
+import { microservicesConstants } from './utils/constants';
 
+const { notification } = microservicesConstants;
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,23 +31,23 @@ import { User } from './users/entities/user.entity';
     TypeOrmModule.forFeature([User]),
     UsersModule,
     AuthModule,
-    // UserRolesModule,
-    // RolesModule,
-    // RolePermissionsModule,
-    // PermissionsModule,
-    // PermissionGroupsModule,
-    // MenusModule,
+    UserRolesModule,
+    RolesModule,
+    RolePermissionsModule,
+    PermissionsModule,
+    PermissionGroupsModule,
+    MenusModule,
     ClientsModule.register([
       {
-        name: 'NOTIFICATION_MICROSERVICE',
+        name: notification.NAME,
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'notification',
-            brokers: ['Nhung-Nguyen:9092'],
+            clientId: notification.CLIENT_ID,
+            brokers: notification.BROKERS,
           },
           consumer: {
-            groupId: 'notification-consumer',
+            groupId: notification.GROUP_ID,
           },
         },
       },

@@ -1,90 +1,118 @@
-import { Controller, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus } from '@nestjs/common';
 import { MenusService } from './menus.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { FilterMenuDto } from './dto/filter-menu.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { HttpExceptionCustom } from 'src/utils/httpExceptionCustom';
+import { requestPatterns } from 'src/utils/constants';
+
+const { tables, requests } = requestPatterns;
+const { menu } = tables;
+const { create, getAll, getOneById, remove, update, getOneByKey } = requests;
 
 @Controller('menus')
 export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
-  @MessagePattern({ role: 'item', cmd: 'get_menus' })
-  async findAll(@Payload() query: FilterMenuDto): Promise<any> {
-    return await this.menusService.findAll(query);
+  @MessagePattern(`${menu}.${getAll}`)
+  async findAll(@Payload() query: FilterMenuDto) {
+    const result = await this.menusService.findAll(query);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'get_menu' })
-  async findOne(@Payload() id: string): Promise<any> {
+  @MessagePattern(`${menu}.${getOneById}`)
+  async findOne(@Payload() id: string) {
     const menu = await this.menusService.findOne(id);
     if (!menu) {
-      return new HttpException('Menu does not exist!', HttpStatus.NOT_FOUND);
+      return new HttpExceptionCustom(
+        'Menu does not exist!',
+        HttpStatus.NOT_FOUND,
+      ).toString();
     } else {
-      return menu;
+      return JSON.stringify(menu);
     }
   }
 
-  @MessagePattern({ role: 'item', cmd: 'get_menu_by_key' })
-  async findOneByKey(@Payload() key: string): Promise<any> {
+  @MessagePattern(`${menu}.${getOneByKey}`)
+  async findOneByKey(@Payload() key: string) {
     const menu = await this.menusService.findOneByKey(key);
     if (!menu) {
-      return new HttpException('Menu does not exist!', HttpStatus.NOT_FOUND);
+      return new HttpExceptionCustom(
+        'Menu does not exist!',
+        HttpStatus.NOT_FOUND,
+      ).toString();
     } else {
-      return menu;
+      return JSON.stringify(menu);
     }
   }
 
-  @MessagePattern({ role: 'item', cmd: 'create_menu' })
-  async create(@Payload() menu: CreateMenuDto): Promise<any> {
+  @MessagePattern(`${menu}.${create}`)
+  async create(@Payload() menu: CreateMenuDto) {
     const menuExist = await this.menusService.findOneByKey(menu.key);
     if (menuExist) {
-      return new HttpException('Key existed!', HttpStatus.CONFLICT);
+      return new HttpExceptionCustom(
+        'Key existed!',
+        HttpStatus.CONFLICT,
+      ).toString();
     }
 
     if (menu.parentId) {
       const menuParentExist = await this.menusService.findOne(menu.parentId);
       if (!menuParentExist) {
-        return new HttpException(
+        return new HttpExceptionCustom(
           'MenuParent hasnt existed!',
           HttpStatus.CONFLICT,
-        );
+        ).toString();
       }
     }
 
-    return await this.menusService.create(menu);
+    const result = await this.menusService.create(menu);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'update_menu' })
-  async update(@Payload() updateData): Promise<any> {
+  @MessagePattern(`${menu}.${update}`)
+  async update(@Payload() updateData) {
     const { id, menu } = updateData;
     const menuIdExist = await this.menusService.findOne(id);
     if (!menuIdExist) {
-      return new HttpException('Menu does not exist!', HttpStatus.NOT_FOUND);
+      return new HttpExceptionCustom(
+        'Menu does not exist!',
+        HttpStatus.NOT_FOUND,
+      ).toString();
     }
 
     if (menu.key && menu.key !== menuIdExist.key) {
       const menuKeyExist = await this.menusService.findOneByKey(menu.key);
       if (menuKeyExist) {
-        return new HttpException('Key existed!', HttpStatus.CONFLICT);
+        return new HttpExceptionCustom(
+          'Key existed!',
+          HttpStatus.CONFLICT,
+        ).toString();
       }
     }
     if (menu.parentId) {
       const menuParentExist = await this.menusService.findOne(menu.parentId);
       if (!menuParentExist) {
-        return new HttpException(
+        return new HttpExceptionCustom(
           'MenuParent hasnt existed!',
           HttpStatus.CONFLICT,
-        );
+        ).toString();
       }
     }
-    return await this.menusService.update(id, menu);
+    const result = await this.menusService.update(id, menu);
+    return result;
   }
 
-  @MessagePattern({ role: 'item', cmd: 'delete_menu' })
-  async delete(@Payload() id: string): Promise<any> {
+  @MessagePattern(`${menu}.${remove}`)
+  async delete(@Payload() id: string) {
     const menu = await this.menusService.findOne(id);
     if (!menu) {
-      return new HttpException('Menu does not exist!', HttpStatus.NOT_FOUND);
+      return new HttpExceptionCustom(
+        'Menu does not exist!',
+        HttpStatus.NOT_FOUND,
+      ).toString();
     }
-    return await this.menusService.delete(id);
+    const result = await this.menusService.delete(id);
+    return result;
   }
 }
