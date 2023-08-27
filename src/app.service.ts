@@ -1,12 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
-  getToken(data) {
-    return {
-      ...data,
-      token: '11111111111',
-    };
-  }
-}
+export class AppService {}
