@@ -34,7 +34,10 @@ export class UsersService {
       skip,
       relations: {
         updatedByUser: true,
-        userRoles: true,
+        userRoles: {
+          user: true,
+          role: true,
+        },
       },
     });
 
@@ -56,7 +59,10 @@ export class UsersService {
       where: { id },
       relations: {
         updatedByUser: true,
-        userRoles: true,
+        userRoles: {
+          user: true,
+          role: true,
+        },
       },
     });
   }
