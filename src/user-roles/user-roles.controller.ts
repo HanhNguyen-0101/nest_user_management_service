@@ -1,4 +1,4 @@
-import { Controller, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus } from '@nestjs/common';
 import { UserRolesService } from './user-roles.service';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { FilterUserRoleDto } from './dto/filter-user-role.dto';
@@ -6,6 +6,12 @@ import { FindCompositeKeyUserRoleDto } from './dto/find-composite-key-user-role.
 import { UsersService } from '../users/users.service';
 import { RolesService } from '../roles/roles.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { requestPatterns } from 'src/utils/constants';
+import { HttpExceptionCustom } from 'src/utils/httpExceptionCustom';
+
+const { tables, requests } = requestPatterns;
+const { userRoles } = tables;
+const { create, getAll, getOneById, remove, update } = requests;
 
 @Controller('user-roles')
 export class UserRolesController {
@@ -15,40 +21,41 @@ export class UserRolesController {
     private readonly rolesService: RolesService,
   ) {}
 
-  @MessagePattern({ role: 'item', cmd: 'get_userroles' })
-  async findAll(@Payload() query: FilterUserRoleDto): Promise<any> {
-    return await this.userRolesService.findAll(query);
+  @MessagePattern(`${userRoles}.${getAll}`)
+  async findAll(@Payload() query: FilterUserRoleDto) {
+    const result = await this.userRolesService.findAll(query);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'get_userrole' })
-  async findOne(@Payload() params: FindCompositeKeyUserRoleDto): Promise<any> {
+  @MessagePattern(`${userRoles}.${getOneById}`)
+  async findOne(@Payload() params: FindCompositeKeyUserRoleDto) {
     const userRole = await this.userRolesService.findOne(params);
     if (!userRole) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'UserRole does not exist!',
         HttpStatus.BAD_REQUEST,
-      );
+      ).toString();
     } else {
-      return userRole;
+      return JSON.stringify(userRole);
     }
   }
 
-  @MessagePattern({ role: 'item', cmd: 'create_userrole' })
-  async create(@Payload() createUserRoleDto: CreateUserRoleDto): Promise<any> {
+  @MessagePattern(`${userRoles}.${create}`)
+  async create(@Payload() createUserRoleDto: CreateUserRoleDto) {
     const { userId, roleId } = createUserRoleDto;
     const user = await this.usersService.findOne(userId);
     const role = await this.rolesService.findOne(roleId);
     if (!user) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'UserID does not exist!',
         HttpStatus.BAD_REQUEST,
-      );
+      ).toString();
     }
     if (!role) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'RoleID does not exist!',
         HttpStatus.BAD_REQUEST,
-      );
+      ).toString();
     }
 
     const userRoleExist = await this.userRolesService.findOne({
@@ -56,39 +63,43 @@ export class UserRolesController {
       role_id: roleId,
     });
     if (userRoleExist) {
-      return new HttpException('UserRole was created!', HttpStatus.CONFLICT);
+      return new HttpExceptionCustom(
+        'UserRole was created!',
+        HttpStatus.CONFLICT,
+      ).toString();
     }
 
-    return await this.userRolesService.create(createUserRoleDto);
+    const result = await this.userRolesService.create(createUserRoleDto);
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'update_userrole' })
+  @MessagePattern(`${userRoles}.${update}`)
   async update(@Payload() updateData: { params; updateUserRoleDto }) {
     const { params, updateUserRoleDto } = updateData;
     const { userId, roleId } = updateUserRoleDto;
     const userRole = await this.userRolesService.findOne(params);
     if (!userRole) {
-      return new HttpException(
+      return new HttpExceptionCustom(
         'UserRoleID does not exist!',
         HttpStatus.NOT_FOUND,
-      );
+      ).toString();
     }
     if (roleId) {
       const role = await this.rolesService.findOne(updateUserRoleDto.roleId);
       if (!role) {
-        return new HttpException(
+        return new HttpExceptionCustom(
           'RoleID does not exist!',
           HttpStatus.NOT_ACCEPTABLE,
-        );
+        ).toString();
       }
     }
     if (userId) {
       const user = await this.usersService.findOne(updateUserRoleDto.userId);
       if (!user) {
-        return new HttpException(
+        return new HttpExceptionCustom(
           'UserID does not exist!',
           HttpStatus.NOT_ACCEPTABLE,
-        );
+        ).toString();
       }
     }
 
@@ -103,18 +114,29 @@ export class UserRolesController {
         userRoleExist.roleId === params.role_id
       )
     ) {
-      return new HttpException('UserRole was existed', HttpStatus.CONFLICT);
+      return new HttpExceptionCustom(
+        'UserRole was existed',
+        HttpStatus.CONFLICT,
+      ).toString();
     }
 
-    return await this.userRolesService.update(params, updateUserRoleDto);
+    const result = await this.userRolesService.update(
+      params,
+      updateUserRoleDto,
+    );
+    return JSON.stringify(result);
   }
 
-  @MessagePattern({ role: 'item', cmd: 'delete_userrole' })
-  async delete(@Payload() params: FindCompositeKeyUserRoleDto): Promise<any> {
+  @MessagePattern(`${userRoles}.${remove}`)
+  async delete(@Payload() params: FindCompositeKeyUserRoleDto) {
     const recordExist = await this.userRolesService.findOne(params);
     if (!recordExist) {
-      return new HttpException('Record does not exist!', HttpStatus.NOT_FOUND);
+      return new HttpExceptionCustom(
+        'Record does not exist!',
+        HttpStatus.NOT_FOUND,
+      ).toString();
     }
-    return await this.userRolesService.delete(params);
+    const result = await this.userRolesService.delete(params);
+    return JSON.stringify(result);
   }
 }
