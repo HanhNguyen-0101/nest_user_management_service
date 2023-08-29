@@ -56,7 +56,13 @@ export class UsersService {
       where: { id },
       relations: {
         updatedByUser: true,
-        userRoles: true,
+        userRoles: {
+          role: {
+            rolePermissions: {
+              permission: true,
+            }
+          },
+        },
       },
     });
   }
