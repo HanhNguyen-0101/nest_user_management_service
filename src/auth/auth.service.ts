@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   async register(registerUserDto: RegisterUserDto): Promise<any> {
-    return await this.userRepository.create(registerUserDto);
+    return await this.userRepository.save(registerUserDto);
   }
 
   async registerGoogle(registerUser): Promise<any> {
