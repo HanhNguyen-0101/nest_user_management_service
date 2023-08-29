@@ -34,10 +34,7 @@ export class UsersService {
       skip,
       relations: {
         updatedByUser: true,
-        userRoles: {
-          user: true,
-          role: true,
-        },
+        userRoles: true,
       },
     });
 
@@ -60,8 +57,11 @@ export class UsersService {
       relations: {
         updatedByUser: true,
         userRoles: {
-          user: true,
-          role: true,
+          role: {
+            rolePermissions: {
+              permission: true,
+            }
+          },
         },
       },
     });
