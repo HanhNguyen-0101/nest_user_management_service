@@ -1,4 +1,4 @@
-import { Controller, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus, Inject, forwardRef } from '@nestjs/common';
 import { UserRolesService } from './user-roles.service';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { FilterUserRoleDto } from './dto/filter-user-role.dto';
@@ -17,6 +17,7 @@ const { create, getAll, getOneById, remove, update } = requests;
 export class UserRolesController {
   constructor(
     private readonly userRolesService: UserRolesService,
+    @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
     private readonly rolesService: RolesService,
   ) {}

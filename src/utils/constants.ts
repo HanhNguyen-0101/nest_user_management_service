@@ -46,3 +46,5 @@ export const requestPatterns = {
     remove: 'remove',
   },
 };
+
+export const roleUserNameDefault = 'user';

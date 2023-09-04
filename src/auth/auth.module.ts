@@ -8,11 +8,15 @@ import { User } from 'src/users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { KafkaProducerProvider } from 'src/kafka-producer.provider';
 import { Producer } from 'kafkajs';
+import { UserRolesModule } from 'src/user-roles/user-roles.module';
+import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     UsersModule,
+    UserRolesModule,
+    RolesModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

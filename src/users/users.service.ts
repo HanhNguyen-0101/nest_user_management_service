@@ -1,17 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Producer } from 'kafkajs';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { requestPatterns, roleUserNameDefault } from 'src/utils/constants';
+import { UserRolesService } from 'src/user-roles/user-roles.service';
+import { RolesService } from 'src/roles/roles.service';
+const { tables, requests } = requestPatterns;
+
 
 @Injectable()
 export class UsersService {
   constructor(
+    @Inject('KafkaProducer')
+    private readonly kafkaProducer: Producer,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @Inject(forwardRef(() => UserRolesService))
+    private userRoleService: UserRolesService,
+    private roleService: RolesService,
   ) {}
 
   async findAll(query: FilterUserDto): Promise<any> {
@@ -60,7 +71,7 @@ export class UsersService {
           role: {
             rolePermissions: {
               permission: true,
-            }
+            },
           },
         },
       },
@@ -73,10 +84,26 @@ export class UsersService {
 
   async create(user: CreateUserDto): Promise<User> {
     const hashPassword = await this.hashPassword(user.password);
-    return await this.userRepository.save({
+    const newUser = await this.userRepository.save({
       ...user,
       password: hashPassword,
     });
+    await this.kafkaProducer.send({
+      topic: `${tables.auth}.${requests.sendSignUpMsg}`,
+      messages: [
+        {
+          value: JSON.stringify(newUser),
+        },
+      ],
+    });
+    const userRole = await this.roleService.findOneByName(roleUserNameDefault);
+    if (userRole && newUser) {
+      await this.userRoleService.create({
+        userId: newUser.id,
+        roleId: userRole.id
+      });
+    }
+    return newUser;
   }
 
   async update(id: string, user: UpdateUserDto): Promise<User> {
