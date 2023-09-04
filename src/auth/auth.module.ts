@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Inject, OnModuleDestroy } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
@@ -6,6 +6,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../utils/constants';
 import { User } from 'src/users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { KafkaProducerProvider } from 'src/kafka-producer.provider';
+import { Producer } from 'kafkajs';
 
 @Module({
   imports: [
@@ -18,6 +20,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, KafkaProducerProvider],
 })
-export class AuthModule {}
+export class AuthModule implements OnModuleDestroy {
+  constructor(
+    @Inject('KafkaProducer')
+    private readonly kafkaProducer: Producer,
+  ) {}
+
+  async onModuleDestroy(): Promise<void> {
+    await this.kafkaProducer.disconnect();
+  }
+}

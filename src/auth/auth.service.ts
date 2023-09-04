@@ -1,14 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersService } from 'src/users/users.service';
+import { Producer } from 'kafkajs';
+import { requestPatterns } from 'src/utils/constants';
+
+const { tables, requests } = requestPatterns;
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject('KafkaProducer')
+    private readonly kafkaProducer: Producer,
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private userService: UsersService,
@@ -20,14 +26,32 @@ export class AuthService {
   }
 
   async register(registerUserDto: RegisterUserDto): Promise<any> {
-    return await this.userService.create({
+    const newUser = await this.userService.create({
       ...registerUserDto,
       updatedBy: null,
     });
+    await this.kafkaProducer.send({
+      topic: `${tables.auth}.${requests.sendSignUpMsg}`,
+      messages: [
+        {
+          value: JSON.stringify(newUser),
+        },
+      ],
+    });
+    return newUser;
   }
 
   async googleRegister(registerUser): Promise<any> {
-    return await this.userRepository.save(registerUser);
+    const newUser = await this.userRepository.save(registerUser);
+    await this.kafkaProducer.send({
+      topic: `${tables.auth}.${requests.sendSignUpMsg}`,
+      messages: [
+        {
+          value: JSON.stringify(newUser),
+        },
+      ],
+    });
+    return newUser;
   }
 
   async googleLogin(user) {

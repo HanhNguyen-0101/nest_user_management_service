@@ -33,6 +33,7 @@ export const requestPatterns = {
   requests: {
     login: 'login',
     register: 'register',
+    sendSignUpMsg: 'send_signup_message',
     ggRegister: 'google.register',
     ggLogin: 'google.login',
     getAll: 'get_all',
