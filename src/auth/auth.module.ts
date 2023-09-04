@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../utils/constants';
 import { User } from 'src/users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { KafkaProducerProvider } from 'src/kafka-producer.provider';
+import { KafkaProducerProvider } from 'src/providers/kafka-producer.provider';
 import { Producer } from 'kafkajs';
 import { UserRolesModule } from 'src/user-roles/user-roles.module';
 import { RolesModule } from 'src/roles/roles.module';
