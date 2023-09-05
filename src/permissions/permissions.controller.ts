@@ -1,4 +1,4 @@
-import { Controller, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus, HttpException } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
@@ -6,7 +6,6 @@ import { FilterPermissionDto } from './dto/filter-permission.dto';
 import { PermissionGroupsService } from '../permission-groups/permission-groups.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { requestPatterns } from 'src/utils/constants';
-import { HttpExceptionCustom } from 'src/utils/httpExceptionCustom';
 
 const { tables, requests } = requestPatterns;
 const { permissions } = tables;
@@ -21,20 +20,19 @@ export class PermissionsController {
 
   @MessagePattern(`${permissions}.${getAll}`)
   async findAll(@Payload() query: FilterPermissionDto) {
-    const result = await this.permissionsService.findAll(query);
-    return JSON.stringify(result);
+    return await this.permissionsService.findAll(query);
   }
 
   @MessagePattern(`${permissions}.${getOneById}`)
   async findOne(@Payload() id: string) {
     const permission = await this.permissionsService.findOne(id);
     if (!permission) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'Permission does not exist!',
         HttpStatus.NOT_FOUND,
-      ).toString();
+      );
     } else {
-      return JSON.stringify(permission);
+      return permission;
     }
   }
 
@@ -44,23 +42,19 @@ export class PermissionsController {
       createPermissionDto.permissionGroupId,
     );
     if (!permissionGroup) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'PermissionGroupID does not exist!',
         HttpStatus.NOT_ACCEPTABLE,
-      ).toString();
+      );
     }
 
     const permissionExist = await this.permissionsService.findOneByName(
       createPermissionDto.name,
     );
     if (permissionExist) {
-      return new HttpExceptionCustom(
-        'Name existed!',
-        HttpStatus.CONFLICT,
-      ).toString();
+      return new HttpException('Name existed!', HttpStatus.CONFLICT);
     }
-    const result = await this.permissionsService.create(createPermissionDto);
-    return JSON.stringify(result);
+    return await this.permissionsService.create(createPermissionDto);
   }
 
   @MessagePattern(`${permissions}.${update}`)
@@ -76,10 +70,10 @@ export class PermissionsController {
     // Check Permission exist
     const permissionIdExist = await this.permissionsService.findOne(id);
     if (!permissionIdExist) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'permission does not exist!',
         HttpStatus.NOT_FOUND,
-      ).toString();
+      );
     }
 
     // Check permissionGroupId has existed in PermissionGroup
@@ -88,10 +82,10 @@ export class PermissionsController {
         permission.permissionGroupId,
       );
       if (!permissionGroup) {
-        return new HttpExceptionCustom(
+        return new HttpException(
           'PermissionGroupID does not exist!',
           HttpStatus.NOT_ACCEPTABLE,
-        ).toString();
+        );
       }
     }
 
@@ -101,27 +95,22 @@ export class PermissionsController {
         permission.name,
       );
       if (permissionNameExist) {
-        return new HttpExceptionCustom(
-          'Name existed!',
-          HttpStatus.CONFLICT,
-        ).toString();
+        return new HttpException('Name existed!', HttpStatus.CONFLICT);
       }
     }
 
-    const result = await this.permissionsService.update(id, permission);
-    return JSON.stringify(result);
+    return await this.permissionsService.update(id, permission);
   }
 
   @MessagePattern(`${permissions}.${remove}`)
   async delete(@Payload() id: string) {
     const permission = await this.permissionsService.findOne(id);
     if (!permission) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'permission does not exist!',
         HttpStatus.NOT_FOUND,
-      ).toString();
+      );
     }
-    const result = await this.permissionsService.delete(id);
-    return JSON.stringify(result);
+    return await this.permissionsService.delete(id);
   }
 }

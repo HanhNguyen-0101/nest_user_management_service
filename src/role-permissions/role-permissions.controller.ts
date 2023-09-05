@@ -1,4 +1,4 @@
-import { Controller, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus, HttpException } from '@nestjs/common';
 import { RolePermissionsService } from './role-permissions.service';
 import { CreateRolePermissionDto } from './dto/create-role-permission.dto';
 import { UpdateRolePermissionDto } from './dto/update-role-permission.dto';
@@ -8,7 +8,6 @@ import { RolesService } from '../roles/roles.service';
 import { PermissionsService } from '../permissions/permissions.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { requestPatterns } from 'src/utils/constants';
-import { HttpExceptionCustom } from 'src/utils/httpExceptionCustom';
 
 const { tables, requests } = requestPatterns;
 const { rolePermissions } = tables;
@@ -24,8 +23,7 @@ export class RolePermissionsController {
 
   @MessagePattern(`${rolePermissions}.${getAll}`)
   async findAll(@Payload() query: FilterRolePermissionDto) {
-    const result = await this.rolePermissionsService.findAll(query);
-    return JSON.stringify(result);
+    return await this.rolePermissionsService.findAll(query);
   }
 
   @MessagePattern(`${rolePermissions}.${getOneById}`)
@@ -35,12 +33,12 @@ export class RolePermissionsController {
   ) {
     const rolePermission = await this.rolePermissionsService.findOne(params);
     if (!rolePermission) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'rolePermission does not exist!',
         HttpStatus.NOT_FOUND,
-      ).toString();
+      );
     } else {
-      return JSON.stringify(rolePermission);
+      return rolePermission;
     }
   }
 
@@ -51,16 +49,13 @@ export class RolePermissionsController {
     const permission = await this.permissionsService.findOne(permissionId);
     const role = await this.rolesService.findOne(roleId);
     if (!permission) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'PermissionID does not exist!',
         HttpStatus.NOT_FOUND,
-      ).toString();
+      );
     }
     if (!role) {
-      return new HttpExceptionCustom(
-        'RoleID does not exist!',
-        HttpStatus.NOT_FOUND,
-      ).toString();
+      return new HttpException('RoleID does not exist!', HttpStatus.NOT_FOUND);
     }
 
     const rolePermissionExist = await this.rolePermissionsService.findOne({
@@ -69,15 +64,12 @@ export class RolePermissionsController {
     });
 
     if (rolePermissionExist) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'RolePermission was created!',
         HttpStatus.CONFLICT,
-      ).toString();
+      );
     }
-    const result = await this.rolePermissionsService.create(
-      createRolePermissionDto,
-    );
-    return JSON.stringify(result);
+    return await this.rolePermissionsService.create(createRolePermissionDto);
   }
 
   @MessagePattern(`${rolePermissions}.${update}`)
@@ -93,27 +85,27 @@ export class RolePermissionsController {
 
     const rolePermission = await this.rolePermissionsService.findOne(params);
     if (!rolePermission) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'RolePermissionID does not exist!',
         HttpStatus.NOT_ACCEPTABLE,
-      ).toString();
+      );
     }
     if (roleId) {
       const role = await this.rolesService.findOne(roleId);
       if (!role) {
-        return new HttpExceptionCustom(
+        return new HttpException(
           'RoleID does not exist!',
           HttpStatus.NOT_ACCEPTABLE,
-        ).toString();
+        );
       }
     }
     if (permissionId) {
       const permission = await this.permissionsService.findOne(permissionId);
       if (!permission) {
-        return new HttpExceptionCustom(
+        return new HttpException(
           'PermissionID does not exist!',
           HttpStatus.NOT_ACCEPTABLE,
-        ).toString();
+        );
       }
     }
 
@@ -129,29 +121,24 @@ export class RolePermissionsController {
         rolePermissionExist.roleId === params.role_id
       )
     ) {
-      return new HttpExceptionCustom(
+      return new HttpException(
         'RolePermission was existed',
         HttpStatus.CONFLICT,
-      ).toString();
+      );
     }
 
-    const result = await this.rolePermissionsService.update(
+    return await this.rolePermissionsService.update(
       params,
       updateRolePermissionDto,
     );
-    return JSON.stringify(result);
   }
 
   @MessagePattern(`${rolePermissions}.${remove}`)
   async delete(@Payload() params: FindCompositeKeyRolePermissionDto) {
     const recordExist = await this.rolePermissionsService.findOne(params);
     if (!recordExist) {
-      return new HttpExceptionCustom(
-        'Record does not exist!',
-        HttpStatus.NOT_FOUND,
-      ).toString();
+      return new HttpException('Record does not exist!', HttpStatus.NOT_FOUND);
     }
-    const result = await this.rolePermissionsService.delete(params);
-    return JSON.stringify(result);
+    return await this.rolePermissionsService.delete(params);
   }
 }
