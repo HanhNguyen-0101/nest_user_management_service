@@ -1,9 +1,8 @@
-import { Controller, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { UsersService } from '../users/users.service';
 import { requestPatterns } from 'src/utils/constants';
 
 const { tables, requests } = requestPatterns;
@@ -12,10 +11,7 @@ const { login, register, ggLogin, ggRegister } = requests;
 
 @Controller()
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @MessagePattern(`${auth}.${login}`)
   async login(@Payload() user: User) {
@@ -24,10 +20,6 @@ export class AuthController {
 
   @MessagePattern(`${auth}.${register}`)
   async register(@Payload() registerUser: RegisterUserDto) {
-    const user = await this.userService.findOneByEmail(registerUser.email);
-    if (user) {
-      return new HttpException('Email existed!', HttpStatus.CONFLICT);
-    }
     return await this.authService.register(registerUser);
   }
 

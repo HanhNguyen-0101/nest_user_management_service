@@ -1,4 +1,4 @@
-import { Controller, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -21,59 +21,26 @@ export class UsersController {
 
   @MessagePattern(`${users}.${getOneById}`)
   async findOne(id: string) {
-    const user = await this.usersService.findOne(id);
-    if (!user) {
-      return new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
-    }
-    return user;
+    return await this.usersService.findOne(id);
   }
 
   @MessagePattern(`${users}.${getOneByEmail}`)
-  async findOneByEmail(email: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(email);
-    if (!user) {
-      return new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
-    }
-    return user;
+  async findOneByEmail(email: string) {
+    return await this.usersService.findOneByEmail(email);
   }
 
   @MessagePattern(`${users}.${create}`)
-  async create(user: CreateUserDto): Promise<any> {
-    const userExist = await this.usersService.findOneByEmail(user.email);
-    if (userExist) {
-      return new HttpException('Email existed!', HttpStatus.CONFLICT);
-    }
+  async create(user: CreateUserDto) {
     return await this.usersService.create(user);
   }
 
   @MessagePattern(`${users}.${update}`)
-  async update(updateUser: { id: string; user: UpdateUserDto }): Promise<any> {
-    const userIdExist = await this.usersService.findOne(updateUser.id);
-    if (!userIdExist) {
-      return new HttpException(
-        'User hasnt existed!',
-        HttpStatus.NOT_ACCEPTABLE,
-      );
-    }
-
-    if (updateUser.user.email && updateUser.user.email !== userIdExist.email) {
-      const userEmailExist = await this.usersService.findOne(
-        updateUser.user.email,
-      );
-      if (userEmailExist) {
-        return new HttpException('Email existed!', HttpStatus.CONFLICT);
-      }
-    }
-
+  async update(updateUser: { id: string; user: UpdateUserDto }) {
     return await this.usersService.update(updateUser.id, updateUser.user);
   }
 
   @MessagePattern(`${users}.${remove}`)
-  async delete(id: string): Promise<any> {
-    const user = await this.usersService.findOne(id);
-    if (!user) {
-      return new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
-    }
+  async delete(id: string) {
     return await this.usersService.delete(id);
   }
 }
