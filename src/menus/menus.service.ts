@@ -55,12 +55,12 @@ export class MenusService {
     return await this.menuRepository.findOneBy({ key });
   }
 
-  async create(menu: CreateMenuDto): Promise<Menu> {
-    return await this.menuRepository.save(menu);
+  async create(createMenuDto: CreateMenuDto): Promise<Menu> {
+    return await this.menuRepository.save(createMenuDto);
   }
 
-  async update(id: string, menu: UpdateMenuDto): Promise<Menu> {
-    await this.menuRepository.update(id, menu);
+  async update(id: string, updateMenuDto: UpdateMenuDto): Promise<Menu> {
+    await this.menuRepository.update(id, updateMenuDto);
     return await this.menuRepository.findOne({ where: { id } });
   }
 
