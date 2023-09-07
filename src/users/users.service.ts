@@ -1,4 +1,4 @@
-import { Injectable, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -20,7 +20,6 @@ export class UsersService {
     private readonly kafkaProducer: Producer,
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    @Inject(forwardRef(() => UserRolesService))
     private userRoleService: UserRolesService,
     private roleService: RolesService,
   ) {}
