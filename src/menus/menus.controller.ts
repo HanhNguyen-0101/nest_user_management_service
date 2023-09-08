@@ -4,6 +4,7 @@ import { CreateMenuDto } from './dto/create-menu.dto';
 import { FilterMenuDto } from './dto/filter-menu.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { requestPatterns } from 'src/utils/constants';
+import { UpdateMenuDto } from './dto/update-menu.dto';
 
 const { tables, requests } = requestPatterns;
 const { menu } = tables;
@@ -34,7 +35,9 @@ export class MenusController {
   }
 
   @MessagePattern(`${menu}.${update}`)
-  async update(@Payload() updateData) {
+  async update(
+    @Payload() updateData: { id: string; updateMenuDto: UpdateMenuDto },
+  ) {
     const { id, updateMenuDto } = updateData;
     return await this.menusService.update(id, updateMenuDto);
   }
