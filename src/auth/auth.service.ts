@@ -12,7 +12,15 @@ export class AuthService {
   ) {}
 
   async login(user: User) {
-    return await this.generateToken({ id: user.id, email: user.email });
+    const accessToken = await this.generateToken({
+      id: user.id,
+      email: user.email,
+    });
+    const { id, email, firstName, lastName } = user;
+    return {
+      ...accessToken,
+      profile: { id, email, firstName, lastName },
+    };
   }
 
   async register(registerUserDto: RegisterUserDto): Promise<any> {
@@ -29,7 +37,15 @@ export class AuthService {
   }
 
   async googleLogin(user) {
-    return await this.generateToken({ id: user.id, email: user.email });
+    const accessToken = await this.generateToken({
+      id: user.id,
+      email: user.email,
+    });
+    const { id, email, firstName, lastName } = user;
+    return {
+      ...accessToken,
+      profile: { id, email, firstName, lastName },
+    };
   }
 
   private async generateToken(payload: {

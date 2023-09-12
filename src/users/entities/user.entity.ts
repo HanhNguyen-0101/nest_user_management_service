@@ -1,4 +1,3 @@
-// import { UserRole } from 'src/user-roles/entities/user-role.entity';
 import {
   Entity,
   Column,
