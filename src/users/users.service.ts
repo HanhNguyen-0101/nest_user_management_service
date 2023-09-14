@@ -12,7 +12,6 @@ import { UserRolesService } from 'src/user-roles/user-roles.service';
 import { RolesService } from 'src/roles/roles.service';
 const { tables, requests } = requestPatterns;
 
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -99,7 +98,7 @@ export class UsersService {
     if (userRole && newUser) {
       await this.userRoleService.create({
         userId: newUser.id,
-        roleId: userRole.id
+        roleId: userRole.id,
       });
     }
     return newUser;
@@ -107,10 +106,10 @@ export class UsersService {
 
   async update(id: string, user: UpdateUserDto): Promise<User> {
     const userExist = await this.userRepository.findOneBy({ id });
-    const isPasswordMatching = await bcrypt.compare(
-      user.password,
-      userExist.password,
-    );
+    const isPasswordMatching =
+      user.password === userExist.password
+        ? true
+        : await bcrypt.compare(user.password, userExist.password);
     if (!isPasswordMatching) {
       const hashPassword = await this.hashPassword(user.password);
       Object.assign(user, {
