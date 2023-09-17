@@ -1,15 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
-import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
-import { FilterUserDto } from './dto/filter-user.dto';
+import { requestPatterns } from 'src/utils/constants';
+import { Like, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { FilterUserDto } from './dto/filter-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { requestPatterns, roleUserNameDefault } from 'src/utils/constants';
-import { UserRolesService } from 'src/user-roles/user-roles.service';
-import { RolesService } from 'src/roles/roles.service';
+import { User } from './entities/user.entity';
 const { tables, requests } = requestPatterns;
 
 @Injectable()
@@ -19,8 +17,6 @@ export class UsersService {
     private readonly kafkaProducer: Producer,
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private userRoleService: UserRolesService,
-    private roleService: RolesService,
   ) {}
 
   async findAll(query: FilterUserDto): Promise<any> {
@@ -31,12 +27,12 @@ export class UsersService {
     const keyword = query.search || '';
     const [res, total] = await this.userRepository.findAndCount({
       where: [
-        { email: query.email || Like(`%${keyword}%`) },
-        { email: query.email, firstName: Like(`%${keyword}%`) },
-        { email: query.email, lastName: Like(`%${keyword}%`) },
-        { email: query.email, globalId: Like(`%${keyword}%`) },
-        { email: query.email, officeCode: Like(`%${keyword}%`) },
-        { email: query.email, country: Like(`%${keyword}%`) },
+        { email: Like(`%${keyword}%`) },
+        { firstName: Like(`%${keyword}%`) },
+        { lastName: Like(`%${keyword}%`) },
+        { globalId: Like(`%${keyword}%`) },
+        { officeCode: Like(`%${keyword}%`) },
+        { country: Like(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
       take: itemPerPage,
@@ -94,13 +90,6 @@ export class UsersService {
         },
       ],
     });
-    const userRole = await this.roleService.findOneByName(roleUserNameDefault);
-    if (userRole && newUser) {
-      await this.userRoleService.create({
-        userId: newUser.id,
-        roleId: userRole.id,
-      });
-    }
     return newUser;
   }
 
