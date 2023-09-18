@@ -3,7 +3,7 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { FilterRoleDto } from './dto/filter-role.dto';
 
 @Injectable()
@@ -21,8 +21,8 @@ export class RolesService {
 
     const [res, total] = await this.roleRepository.findAndCount({
       where: [
-        { name: query.name || Like(`%${keyword}%`) },
-        { name: query.name, description: Like(`%${keyword}%`) },
+        { name: query.name || ILike(`%${keyword}%`) },
+        { name: query.name, description: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
       take: itemPerPage,

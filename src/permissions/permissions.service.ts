@@ -4,7 +4,7 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { FilterPermissionDto } from './dto/filter-permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from './entities/permission.entity';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 
 @Injectable()
 export class PermissionsService {
@@ -20,9 +20,9 @@ export class PermissionsService {
 
     const [res, total] = await this.permissionRepository.findAndCount({
       where: [
-        { name: Like(`%${keyword}%`) },
-        { description: Like(`%${keyword}%`) },
-        { code: Like(`%${keyword}%`) },
+        { name: ILike(`%${keyword}%`) },
+        { description: ILike(`%${keyword}%`) },
+        { code: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
       take: itemPerPage,

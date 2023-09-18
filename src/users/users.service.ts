@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
 import { requestPatterns } from 'src/utils/constants';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -27,19 +27,21 @@ export class UsersService {
     const keyword = query.search || '';
     const [res, total] = await this.userRepository.findAndCount({
       where: [
-        { email: Like(`%${keyword}%`) },
-        { firstName: Like(`%${keyword}%`) },
-        { lastName: Like(`%${keyword}%`) },
-        { globalId: Like(`%${keyword}%`) },
-        { officeCode: Like(`%${keyword}%`) },
-        { country: Like(`%${keyword}%`) },
+        { email: ILike(`%${keyword}%`) },
+        { firstName: ILike(`%${keyword}%`) },
+        { lastName: ILike(`%${keyword}%`) },
+        { globalId: ILike(`%${keyword}%`) },
+        { officeCode: ILike(`%${keyword}%`) },
+        { country: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
       take: itemPerPage,
       skip,
       relations: {
         updatedByUser: true,
-        userRoles: true,
+        userRoles: {
+          role: true,
+        },
       },
     });
 

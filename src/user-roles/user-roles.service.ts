@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { UserRole } from './entities/user-role.entity';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { FilterUserRoleDto } from './dto/filter-user-role.dto';
 import { FindCompositeKeyUserRoleDto } from './dto/find-composite-key-user-role.dto';
 
@@ -26,9 +26,9 @@ export class UserRolesService {
           userId: query.user_id,
           roleId: query.role_id,
           user: [
-            { email: Like(`%${keyword}%`) },
-            { firstName: Like(`%${keyword}%`) },
-            { lastName: Like(`%${keyword}%`) },
+            { email: ILike(`%${keyword}%`) },
+            { firstName: ILike(`%${keyword}%`) },
+            { lastName: ILike(`%${keyword}%`) },
           ],
         },
         {

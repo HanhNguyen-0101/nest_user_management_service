@@ -3,7 +3,7 @@ import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from './entities/menu.entity';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { FilterMenuDto } from './dto/filter-menu.dto';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class MenusService {
     const keyword = query.search || '';
 
     const [res, total] = await this.menuRepository.findAndCount({
-      where: [{ key: query.key, name: Like(`%${keyword}%`) }],
+      where: [{ key: query.key, name: ILike(`%${keyword}%`) }],
       order: { createdAt: 'DESC' },
       take: itemPerPage,
       skip,
