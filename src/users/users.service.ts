@@ -35,7 +35,7 @@ export class UsersService {
         { country: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         updatedByUser: true,

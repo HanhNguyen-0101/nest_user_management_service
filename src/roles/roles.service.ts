@@ -21,11 +21,11 @@ export class RolesService {
 
     const [res, total] = await this.roleRepository.findAndCount({
       where: [
-        { name: query.name || ILike(`%${keyword}%`) },
-        { name: query.name, description: ILike(`%${keyword}%`) },
+        { name: ILike(`%${keyword}%`) },
+        { description: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         updatedByUser: true,
@@ -54,8 +54,12 @@ export class RolesService {
       relations: {
         updatedByUser: true,
         createdByUser: true,
-        userRoles: true,
-        rolePermissions: true,
+        userRoles: {
+          user: true,
+        },
+        rolePermissions: {
+          permission: true,
+        },
       },
     });
   }

@@ -21,7 +21,7 @@ export class PermissionGroupsService {
     const [res, total] = await this.permissionGroupRepository.findAndCount({
       where: { name: ILike(`%${keyword}%`) },
       order: { createdAt: 'DESC' },
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       select: ['id', 'name', 'updatedAt', 'createdAt'],
     });

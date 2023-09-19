@@ -25,7 +25,7 @@ export class PermissionsService {
         { code: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         rolePermissions: true,

@@ -20,7 +20,7 @@ export class RolePermissionsService {
     const skip = (page - 1) * itemPerPage;
 
     const [res, total] = await this.rolePermissionRepository.findAndCount({
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         permission: true,

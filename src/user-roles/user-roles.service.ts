@@ -35,12 +35,12 @@ export class UserRolesService {
           userId: query.user_id,
           roleId: query.role_id,
           role: {
-            name: Like(`%${keyword}%`),
+            name: ILike(`%${keyword}%`),
           },
         },
       ],
       order: { assignedAt: 'DESC' },
-      take: itemPerPage,
+      take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         user: true,
