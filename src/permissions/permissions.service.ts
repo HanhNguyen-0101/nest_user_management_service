@@ -50,7 +50,9 @@ export class PermissionsService {
     return await this.permissionRepository.findOne({
       where: { id },
       relations: {
-        rolePermissions: true,
+        rolePermissions: {
+          role: true,
+        },
         permissionGroup: true,
       },
     });
