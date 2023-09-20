@@ -1,4 +1,4 @@
-import { Module, Inject, OnModuleDestroy } from '@nestjs/common';
+import { Module, Inject, OnModuleDestroy, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
@@ -9,7 +9,11 @@ import { UserRolesModule } from 'src/user-roles/user-roles.module';
 import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), RolesModule, UserRolesModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    RolesModule,
+    forwardRef(() => UserRolesModule),
+  ],
   controllers: [UsersController],
   providers: [UsersService, KafkaProducerProvider],
   exports: [UsersService],

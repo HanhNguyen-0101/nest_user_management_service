@@ -1,13 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
-import { requestPatterns } from 'src/utils/constants';
+import { requestPatterns, roleUserNameDefault } from 'src/utils/constants';
 import { ILike, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { UserRolesService } from 'src/user-roles/user-roles.service';
+import { RolesService } from 'src/roles/roles.service';
 const { tables, requests } = requestPatterns;
 
 @Injectable()
@@ -17,6 +19,9 @@ export class UsersService {
     private readonly kafkaProducer: Producer,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @Inject(forwardRef(() => UserRolesService))
+    private userRoleService: UserRolesService,
+    private roleService: RolesService,
   ) {}
 
   async findAll(query: FilterUserDto): Promise<any> {
@@ -92,6 +97,13 @@ export class UsersService {
         },
       ],
     });
+    const userRole = await this.roleService.findOneByName(roleUserNameDefault);
+    if (userRole && newUser) {
+      await this.userRoleService.create({
+        userId: newUser.id,
+        roleId: userRole.id
+      });
+    }
     return newUser;
   }
 
