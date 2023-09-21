@@ -7,11 +7,16 @@ import { requestPatterns } from 'src/utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { auth } = tables;
-const { login, register, ggLogin, ggRegister } = requests;
+const { login, register, ggLogin, ggRegister, resetPassword } = requests;
 
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @MessagePattern(`${auth}.${resetPassword}`)
+  async resetPassword(@Payload() user: User) {
+    return await this.authService.resetPassword(user);
+  }
 
   @MessagePattern(`${auth}.${login}`)
   async login(@Payload() user: User) {

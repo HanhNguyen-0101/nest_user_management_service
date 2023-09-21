@@ -44,6 +44,8 @@ export const requestPatterns = {
     create: 'create',
     update: 'update',
     remove: 'remove',
+    resetPassword: 'reset_password',
+    sendResetPasswordMsg: 'send_reset_password_message',
   },
 };
 

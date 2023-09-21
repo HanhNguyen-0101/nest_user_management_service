@@ -1,15 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { UsersService } from 'src/users/users.service';
+import { Producer } from 'kafkajs';
+import { requestPatterns } from 'src/utils/constants';
+import { generate } from 'generate-password';
+
+const { tables, requests } = requestPatterns;
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject('KafkaProducer')
+    private readonly kafkaProducer: Producer,
     private userService: UsersService,
     private jwtService: JwtService,
   ) {}
+
+  async resetPassword(user: User) {
+    const newPassword = generate({
+      numbers: true,
+    });
+    const newUser = await this.userService.update(user.id, {
+      ...user,
+      password: newPassword,
+    });
+    await this.kafkaProducer.send({
+      topic: `${tables.auth}.${requests.sendResetPasswordMsg}`,
+      messages: [
+        {
+          value: JSON.stringify({ ...newUser, newPassword }),
+        },
+      ],
+    });
+    return newUser;
+  }
 
   async login(user: User) {
     const accessToken = await this.generateToken({
