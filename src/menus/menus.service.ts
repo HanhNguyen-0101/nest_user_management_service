@@ -20,7 +20,7 @@ export class MenusService {
     const keyword = query.search || '';
 
     const [res, total] = await this.menuRepository.findAndCount({
-      where: [{ key: query.key, name: ILike(`%${keyword}%`) }],
+      where: [{ name: ILike(`%${keyword}%`) }],
       order: { createdAt: 'DESC' },
       take: query.page && query.item_per_page ? itemPerPage : null,
       skip,
