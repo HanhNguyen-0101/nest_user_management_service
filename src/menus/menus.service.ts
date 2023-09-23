@@ -13,16 +13,17 @@ export class MenusService {
     private menuRepository: Repository<Menu>,
   ) {}
 
-  async findAll(query: FilterMenuDto): Promise<any> {
-    const page = Number(query.page) || 1;
-    const itemPerPage = Number(query.item_per_page) || 10;
+  async findAll(query?: FilterMenuDto): Promise<any> {
+    const page = query && query.page ? Number(query.page) : 1;
+    const itemPerPage =
+      query && query.item_per_page ? Number(query.item_per_page) : 10;
     const skip = (page - 1) * itemPerPage;
-    const keyword = query.search || '';
+    const keyword = query && query.search ? query.search : '';
 
     const [res, total] = await this.menuRepository.findAndCount({
       where: [{ name: ILike(`%${keyword}%`) }],
       order: { createdAt: 'DESC' },
-      take: query.page && query.item_per_page ? itemPerPage : null,
+      take: query && query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         parentMenu: true,
