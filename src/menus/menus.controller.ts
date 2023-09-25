@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { MenusService } from './menus.service';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { requestPatterns } from './../utils/constants';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { FilterMenuDto } from './dto/filter-menu.dto';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from 'src/utils/constants';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { MenusService } from './menus.service';
 
 const { tables, requests } = requestPatterns;
 const { menu } = tables;
@@ -15,7 +15,7 @@ export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
   @MessagePattern(`${menu}.${getAll}`)
-  async findAll(@Payload() query: FilterMenuDto) {
+  async findAll(@Payload() query?: FilterMenuDto) {
     return await this.menusService.findAll(query);
   }
 

@@ -4,7 +4,7 @@ import { CreatePermissionGroupDto } from './dto/create-permission-group.dto';
 import { UpdatePermissionGroupDto } from './dto/update-permission-group.dto';
 import { FilterPermissionGroupDto } from './dto/filter-permission-group.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from 'src/utils/constants';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { permissionGroups } = tables;
@@ -17,7 +17,7 @@ export class PermissionGroupsController {
   ) {}
 
   @MessagePattern(`${permissionGroups}.${getAll}`)
-  async findAll(@Payload() query: FilterPermissionGroupDto) {
+  async findAll(@Payload() query?: FilterPermissionGroupDto) {
     return await this.permissionGroupsService.findAll(query);
   }
 
