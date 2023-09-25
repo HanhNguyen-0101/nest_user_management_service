@@ -4,7 +4,7 @@ import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { FilterPermissionDto } from './dto/filter-permission.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from 'src/utils/constants';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { permissions } = tables;
@@ -15,7 +15,7 @@ export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
 
   @MessagePattern(`${permissions}.${getAll}`)
-  async findAll(@Payload() query: FilterPermissionDto) {
+  async findAll(@Payload() query?: FilterPermissionDto) {
     return await this.permissionsService.findAll(query);
   }
 
