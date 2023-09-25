@@ -4,7 +4,7 @@ import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { FilterUserRoleDto } from './dto/filter-user-role.dto';
 import { FindCompositeKeyUserRoleDto } from './dto/find-composite-key-user-role.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from 'src/utils/constants';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { userRoles } = tables;
@@ -15,7 +15,7 @@ export class UserRolesController {
   constructor(private readonly userRolesService: UserRolesService) {}
 
   @MessagePattern(`${userRoles}.${getAll}`)
-  async findAll(@Payload() query: FilterUserRoleDto) {
+  async findAll(@Payload() query?: FilterUserRoleDto) {
     return await this.userRolesService.findAll(query);
   }
 

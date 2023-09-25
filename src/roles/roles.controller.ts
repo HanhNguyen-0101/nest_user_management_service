@@ -4,7 +4,7 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { FilterRoleDto } from './dto/filter-role.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from 'src/utils/constants';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { roles } = tables;
@@ -15,7 +15,7 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @MessagePattern(`${roles}.${getAll}`)
-  async findAll(@Payload() query: FilterRoleDto) {
+  async findAll(@Payload() query?: FilterRoleDto) {
     return await this.rolesService.findAll(query);
   }
 
