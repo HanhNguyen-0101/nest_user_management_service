@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { RegisterUserDto } from './dto/register-user.dto';
-import { UsersService } from 'src/users/users.service';
-import { Producer } from 'kafkajs';
-import { requestPatterns } from 'src/utils/constants';
 import { generate } from 'generate-password';
+import { Producer } from 'kafkajs';
+import { UsersService } from '../users/users.service';
+import { requestPatterns } from '../utils/constants';
+import { User } from '../users/entities/user.entity';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 const { tables, requests } = requestPatterns;
 

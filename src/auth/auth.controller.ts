@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
+import { requestPatterns } from '../utils/constants';
+import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { requestPatterns } from 'src/utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { auth } = tables;
@@ -14,12 +14,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @MessagePattern(`${auth}.${resetPassword}`)
-  async resetPassword(@Payload() user: User) {
+  async resetPassword(@Payload() user: any) {
     return await this.authService.resetPassword(user);
   }
 
   @MessagePattern(`${auth}.${login}`)
-  async login(@Payload() user: User) {
+  async login(@Payload() user: any) {
     return await this.authService.login(user);
   }
 
@@ -29,12 +29,12 @@ export class AuthController {
   }
 
   @MessagePattern(`${auth}.${ggRegister}`)
-  async googleRegister(@Payload() user: User) {
+  async googleRegister(@Payload() user: any) {
     return await this.authService.googleRegister(user);
   }
 
   @MessagePattern(`${auth}.${ggLogin}`)
-  async googleLogin(@Payload() user: User) {
+  async googleLogin(@Payload() user: any) {
     return await this.authService.googleLogin(user);
   }
 }
