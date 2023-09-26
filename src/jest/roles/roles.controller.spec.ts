@@ -1,7 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RolesController } from '../../roles/roles.controller';
 import { RolesService } from '../../roles/roles.service';
-import { createRolesDto, mockRoles, mockRolesAll, updateRoles } from './roles.data';
+import {
+  createRolesDto,
+  mockRoles,
+  mockRolesAll,
+  updateRoles,
+} from './roles.data';
 
 const mockRolesService = {
   findAll: jest.fn(),

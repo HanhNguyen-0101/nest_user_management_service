@@ -2,14 +2,14 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
-import { requestPatterns, roleUserNameDefault } from 'src/utils/constants';
+import { RolesService } from '../roles/roles.service';
+import { UserRolesService } from '../user-roles/user-roles.service';
+import { requestPatterns, roleUserNameDefault } from '../utils/constants';
 import { ILike, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UserRolesService } from 'src/user-roles/user-roles.service';
-import { RolesService } from 'src/roles/roles.service';
 const { tables, requests } = requestPatterns;
 
 @Injectable()
@@ -24,12 +24,13 @@ export class UsersService {
     private roleService: RolesService,
   ) {}
 
-  async findAll(query: FilterUserDto): Promise<any> {
-    const page = Number(query.page) || 1;
-    const itemPerPage = Number(query.item_per_page) || 10;
+  async findAll(query?: FilterUserDto): Promise<any> {
+    const page = query && query.page ? Number(query.page) : 1;
+    const itemPerPage =
+      query && query.item_per_page ? Number(query.item_per_page) : 10;
     const skip = (page - 1) * itemPerPage;
 
-    const keyword = query.search || '';
+    const keyword = query ? query.search : '';
     const [res, total] = await this.userRepository.findAndCount({
       where: [
         { email: ILike(`%${keyword}%`) },
@@ -40,7 +41,7 @@ export class UsersService {
         { country: ILike(`%${keyword}%`) },
       ],
       order: { createdAt: 'DESC' },
-      take: query.page && query.item_per_page ? itemPerPage : null,
+      take: query && query.page && query.item_per_page ? itemPerPage : null,
       skip,
       relations: {
         updatedByUser: true,

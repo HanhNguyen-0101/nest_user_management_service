@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User } from './entities/user.entity';
-import { KafkaProducerProvider } from 'src/providers/kafka-producer.provider';
+import { KafkaProducerProvider } from '../providers/kafka-producer.provider';
 import { Producer } from 'kafkajs';
-import { UserRolesModule } from 'src/user-roles/user-roles.module';
-import { RolesModule } from 'src/roles/roles.module';
+import { UserRolesModule } from '../user-roles/user-roles.module';
+import { RolesModule } from '../roles/roles.module';
 
 @Module({
   imports: [
