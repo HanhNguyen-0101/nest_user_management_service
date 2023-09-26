@@ -4,7 +4,6 @@ import { generate } from 'generate-password';
 import { Producer } from 'kafkajs';
 import { UsersService } from '../users/users.service';
 import { requestPatterns } from '../utils/constants';
-import { User } from '../users/entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 const { tables, requests } = requestPatterns;
@@ -18,7 +17,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async resetPassword(user: User) {
+  async resetPassword(user: any) {
     const newPassword = generate({
       numbers: true,
     });
@@ -37,7 +36,7 @@ export class AuthService {
     return newUser;
   }
 
-  async login(user: User) {
+  async login(user: any) {
     const accessToken = await this.generateToken({
       id: user.id,
       email: user.email,
