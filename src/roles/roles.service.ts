@@ -18,7 +18,7 @@ export class RolesService {
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
     const skip = (page - 1) * itemPerPage;
-    const keyword = query ? query.search : '';
+    const keyword = query && query.search ? query.search : '';
 
     const [res, total] = await this.roleRepository.findAndCount({
       where: [
