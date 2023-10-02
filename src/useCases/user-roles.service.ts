@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserRoleDto } from '../core/dtos/userRoleDto/create-user-role.dto';
 import { UpdateUserRoleDto } from '../core/dtos/userRoleDto/update-user-role.dto';
-import { UserRole } from '../core/entities/user-role.entity';
+import { UserRole } from '../core/entities';
 import { ILike, Repository } from 'typeorm';
 import { FilterUserRoleDto } from '../core/dtos/userRoleDto/filter-user-role.dto';
 import { FindCompositeKeyUserRoleDto } from '../core/dtos/userRoleDto/find-composite-key-user-role.dto';

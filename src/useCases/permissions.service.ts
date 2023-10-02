@@ -3,7 +3,7 @@ import { CreatePermissionDto } from '../core/dtos/permissionDto/create-permissio
 import { UpdatePermissionDto } from '../core/dtos/permissionDto/update-permission.dto';
 import { FilterPermissionDto } from '../core/dtos/permissionDto/filter-permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Permission } from '../core/entities/permission.entity';
+import { Permission } from '../core/entities';
 import { ILike, Repository } from 'typeorm';
 
 @Injectable()

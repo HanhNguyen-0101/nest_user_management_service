@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PermissionsService } from '../useCases/permissions.service';
 import { PermissionsController } from '../controllers';
-import { Permission } from '../core/entities/permission.entity';
-import { PermissionGroup } from '../core/entities/permission-group.entity';
+import { Permission } from '../core/entities';
+import { PermissionGroup } from '../core/entities';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Permission, PermissionGroup])],
