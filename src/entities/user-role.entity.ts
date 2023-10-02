@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Role } from '../../roles/entities/role.entity';
+import { User } from './user.entity';
+import { Role } from './role.entity';
 
 @Entity()
 export class UserRole {

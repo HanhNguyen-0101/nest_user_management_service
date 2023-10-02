@@ -8,9 +8,9 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { UserRole } from '../../user-roles/entities/user-role.entity';
-import { RolePermission } from '../../role-permissions/entities/role-permission.entity';
+import { User } from './user.entity';
+import { UserRole } from './user-role.entity';
+import { RolePermission } from './role-permission.entity';
 
 @Entity()
 export class Role {

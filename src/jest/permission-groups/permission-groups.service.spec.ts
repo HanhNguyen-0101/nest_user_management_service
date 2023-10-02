@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { PermissionGroup } from '../../permission-groups/entities/permission-group.entity';
+import { PermissionGroup } from '../../entities/permission-group.entity';
 import { PermissionGroupsService } from '../../permission-groups/permission-groups.service';
 import {
   createPermissionGroupsDto,

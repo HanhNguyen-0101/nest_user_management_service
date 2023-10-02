@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RolesService } from './../../roles/roles.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Role } from '../../roles/entities/role.entity';
+import { Role } from '../../entities/role.entity';
 import {
   createRolesDto,
   mockRoles,

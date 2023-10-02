@@ -8,7 +8,7 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { UserRole } from '../../user-roles/entities/user-role.entity';
+import { UserRole } from './user-role.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity()

@@ -8,8 +8,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { RolePermission } from '../../role-permissions/entities/role-permission.entity';
-import { PermissionGroup } from '../../permission-groups/entities/permission-group.entity';
+import { RolePermission } from './role-permission.entity';
+import { PermissionGroup } from './permission-group.entity';
 
 @Entity()
 export class Permission {

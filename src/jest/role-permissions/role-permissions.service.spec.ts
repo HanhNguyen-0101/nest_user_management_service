@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RolePermissionsService } from './../../role-permissions/role-permissions.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { RolePermission } from '../../role-permissions/entities/role-permission.entity';
+import { RolePermission } from '../../entities/role-permission.entity';
 import {
   createRolePermissionsDto,
   mockRolePermissions,

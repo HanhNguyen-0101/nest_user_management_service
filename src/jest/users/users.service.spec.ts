@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { KafkaProducerProvider } from '../../providers/kafka-producer.provider';
 import { RolesService } from '../../roles/roles.service';
 import { UserRolesService } from '../../user-roles/user-roles.service';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { UsersService } from './../../users/users.service';
 import { createUsersDto, mockUsers, mockUsersAll } from './users.data';
 
