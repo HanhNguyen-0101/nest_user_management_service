@@ -2,13 +2,13 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
-import { RolesService } from '../roles/roles.service';
-import { UserRolesService } from '../user-roles/user-roles.service';
+import { RolesService } from './roles.service';
+import { UserRolesService } from './user-roles.service';
 import { requestPatterns, roleUserNameDefault } from '../utils/constants';
 import { ILike, Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { FilterUserDto } from './dto/filter-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { FilterUserDto } from '../users/dto/filter-user.dto';
+import { UpdateUserDto } from '../users/dto/update-user.dto';
 import { User } from '../entities/user.entity';
 const { tables, requests } = requestPatterns;
 

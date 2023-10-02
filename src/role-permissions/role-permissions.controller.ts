@@ -5,7 +5,7 @@ import { CreateRolePermissionDto } from './dto/create-role-permission.dto';
 import { FilterRolePermissionDto } from './dto/filter-role-permission.dto';
 import { FindCompositeKeyRolePermissionDto } from './dto/find-composite-key-role-permission.dto';
 import { UpdateRolePermissionDto } from './dto/update-role-permission.dto';
-import { RolePermissionsService } from './role-permissions.service';
+import { RolePermissionsService } from '../useCases/role-permissions.service';
 
 const { tables, requests } = requestPatterns;
 const { rolePermissions } = tables;

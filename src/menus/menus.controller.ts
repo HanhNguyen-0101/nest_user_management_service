@@ -4,7 +4,7 @@ import { requestPatterns } from './../utils/constants';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { FilterMenuDto } from './dto/filter-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { MenusService } from './menus.service';
+import { MenusService } from '../useCases/menus.service';
 
 const { tables, requests } = requestPatterns;
 const { menu } = tables;

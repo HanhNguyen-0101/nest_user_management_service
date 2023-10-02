@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMenuDto } from './dto/create-menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
+import { CreateMenuDto } from '../menus/dto/create-menu.dto';
+import { UpdateMenuDto } from '../menus/dto/update-menu.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from '../entities/menu.entity';
 import { ILike, Repository } from 'typeorm';
-import { FilterMenuDto } from './dto/filter-menu.dto';
+import { FilterMenuDto } from '../menus/dto/filter-menu.dto';
 
 @Injectable()
 export class MenusService {

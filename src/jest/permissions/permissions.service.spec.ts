@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PermissionsService } from './../../permissions/permissions.service';
+import { PermissionsService } from '../../useCases/permissions.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Permission } from '../../entities/permission.entity';
 import {

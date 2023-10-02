@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserRoleDto } from './dto/create-user-role.dto';
-import { UpdateUserRoleDto } from './dto/update-user-role.dto';
+import { CreateUserRoleDto } from '../user-roles/dto/create-user-role.dto';
+import { UpdateUserRoleDto } from '../user-roles/dto/update-user-role.dto';
 import { UserRole } from '../entities/user-role.entity';
 import { ILike, Repository } from 'typeorm';
-import { FilterUserRoleDto } from './dto/filter-user-role.dto';
-import { FindCompositeKeyUserRoleDto } from './dto/find-composite-key-user-role.dto';
+import { FilterUserRoleDto } from '../user-roles/dto/filter-user-role.dto';
+import { FindCompositeKeyUserRoleDto } from '../user-roles/dto/find-composite-key-user-role.dto';
 
 @Injectable()
 export class UserRolesService {

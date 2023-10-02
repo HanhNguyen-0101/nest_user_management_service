@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { PermissionGroupsService } from './permission-groups.service';
+import { PermissionGroupsService } from '../useCases/permission-groups.service';
 import { CreatePermissionGroupDto } from './dto/create-permission-group.dto';
 import { UpdatePermissionGroupDto } from './dto/update-permission-group.dto';
 import { FilterPermissionGroupDto } from './dto/filter-permission-group.dto';

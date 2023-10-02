@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { KafkaProducerProvider } from '../../providers/kafka-producer.provider';
-import { RolesService } from '../../roles/roles.service';
-import { UserRolesService } from '../../user-roles/user-roles.service';
+import { RolesService } from '../../useCases/roles.service';
+import { UserRolesService } from '../../useCases/user-roles.service';
 import { User } from '../../entities/user.entity';
-import { UsersService } from './../../users/users.service';
+import { UsersService } from '../../useCases/users.service';
 import { createUsersDto, mockUsers, mockUsersAll } from './users.data';
 
 const mockUsersService = {

@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { UserRolesService } from './user-roles.service';
+import { UserRolesService } from '../useCases/user-roles.service';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { FilterUserRoleDto } from './dto/filter-user-role.dto';
 import { FindCompositeKeyUserRoleDto } from './dto/find-composite-key-user-role.dto';

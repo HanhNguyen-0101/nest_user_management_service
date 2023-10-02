@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Menu } from '../../entities/menu.entity';
-import { MenusService } from '../../menus/menus.service';
+import { MenusService } from '../../useCases/menus.service';
 import { createMenuDto, mockMenu, updateMenu } from './menus.data';
 
 const mockMenuService = {

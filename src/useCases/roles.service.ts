@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { CreateRoleDto } from '../roles/dto/create-role.dto';
+import { UpdateRoleDto } from '../roles/dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entities/role.entity';
 import { ILike, Repository } from 'typeorm';
-import { FilterRoleDto } from './dto/filter-role.dto';
+import { FilterRoleDto } from '../roles/dto/filter-role.dto';
 
 @Injectable()
 export class RolesService {

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { generate } from 'generate-password';
 import { Producer } from 'kafkajs';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../useCases/users.service';
 import { requestPatterns } from '../utils/constants';
 import { RegisterUserDto } from './dto/register-user.dto';
 

@@ -1,6 +1,6 @@
 import { Module, Inject, OnModuleDestroy, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './users.service';
+import { UsersService } from '../useCases/users.service';
 import { UsersController } from './users.controller';
 import { User } from '../entities/user.entity';
 import { KafkaProducerProvider } from '../providers/kafka-producer.provider';
