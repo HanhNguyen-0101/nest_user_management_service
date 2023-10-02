@@ -5,8 +5,8 @@ import { UsersController } from '../controllers/users.controller';
 import { User } from '../core/entities/user.entity';
 import { KafkaProducerProvider } from '../providers/kafka-producer.provider';
 import { Producer } from 'kafkajs';
-import { UserRolesModule } from '../user-roles/user-roles.module';
-import { RolesModule } from '../roles/roles.module';
+import { UserRolesModule } from './user-roles.module';
+import { RolesModule } from './roles.module';
 
 @Module({
   imports: [

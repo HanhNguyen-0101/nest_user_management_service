@@ -1,5 +1,5 @@
-import { CreatePermissionGroupDto } from '../../permission-groups/dto/create-permission-group.dto';
-import { UpdatePermissionGroupDto } from '../../permission-groups/dto/update-permission-group.dto';
+import { CreatePermissionGroupDto } from '../../core/dtos/permissionGroupDto/create-permission-group.dto';
+import { UpdatePermissionGroupDto } from '../../core/dtos/permissionGroupDto/update-permission-group.dto';
 
 export const mockPermissionGroups = {
   id: '32d888c2-186c-4f35-838e-3dad76739de8',

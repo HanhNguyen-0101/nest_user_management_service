@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePermissionDto } from '../permissions/dto/create-permission.dto';
-import { UpdatePermissionDto } from '../permissions/dto/update-permission.dto';
-import { FilterPermissionDto } from '../permissions/dto/filter-permission.dto';
+import { CreatePermissionDto } from '../core/dtos/permissionDto/create-permission.dto';
+import { UpdatePermissionDto } from '../core/dtos/permissionDto/update-permission.dto';
+import { FilterPermissionDto } from '../core/dtos/permissionDto/filter-permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from '../core/entities/permission.entity';
 import { ILike, Repository } from 'typeorm';

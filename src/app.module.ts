@@ -4,14 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from './config/typeorm';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { RolesModule } from './roles/roles.module';
-import { UserRolesModule } from './user-roles/user-roles.module';
-import { RolePermissionsModule } from './role-permissions/role-permissions.module';
-import { PermissionsModule } from './permissions/permissions.module';
-import { PermissionGroupsModule } from './permission-groups/permission-groups.module';
-import { MenusModule } from './menus/menus.module';
+import { UsersModule } from './modules/users.module';
+import { AuthModule } from './modules/auth.module';
+import { RolesModule } from './modules/roles.module';
+import { UserRolesModule } from './modules/user-roles.module';
+import { RolePermissionsModule } from './modules/role-permissions.module';
+import { PermissionsModule } from './modules/permissions.module';
+import { PermissionGroupsModule } from './modules/permission-groups.module';
+import { MenusModule } from './modules/menus.module';
 import { User } from './core/entities/user.entity';
 
 @Module({

@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { PermissionsService } from '../useCases/permissions.service';
-import { CreatePermissionDto } from '../permissions/dto/create-permission.dto';
-import { UpdatePermissionDto } from '../permissions/dto/update-permission.dto';
-import { FilterPermissionDto } from '../permissions/dto/filter-permission.dto';
+import { CreatePermissionDto } from '../core/dtos/permissionDto/create-permission.dto';
+import { UpdatePermissionDto } from '../core/dtos/permissionDto/update-permission.dto';
+import { FilterPermissionDto } from '../core/dtos/permissionDto/filter-permission.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { requestPatterns } from '../utils/constants';
 

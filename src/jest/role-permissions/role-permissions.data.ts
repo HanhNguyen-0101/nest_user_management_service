@@ -1,6 +1,6 @@
-import { CreateRolePermissionDto } from '../../role-permissions/dto/create-role-permission.dto';
-import { UpdateRolePermissionDto } from '../../role-permissions/dto/update-role-permission.dto';
-import { FindCompositeKeyRolePermissionDto } from '../../role-permissions/dto/find-composite-key-role-permission.dto';
+import { CreateRolePermissionDto } from '../../core/dtos/rolePermissionDto/create-role-permission.dto';
+import { UpdateRolePermissionDto } from '../../core/dtos/rolePermissionDto/update-role-permission.dto';
+import { FindCompositeKeyRolePermissionDto } from '../../core/dtos/rolePermissionDto/find-composite-key-role-permission.dto';
 
 export const mockRolePermissions = {
   roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',

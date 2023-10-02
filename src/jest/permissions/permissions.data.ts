@@ -1,5 +1,5 @@
-import { CreatePermissionDto } from '../../permissions/dto/create-permission.dto';
-import { UpdatePermissionDto } from '../../permissions/dto/update-permission.dto';
+import { CreatePermissionDto } from '../../core/dtos/permissionDto/create-permission.dto';
+import { UpdatePermissionDto } from '../../core/dtos/permissionDto/update-permission.dto';
 
 export const mockPermissions = {
   id: '061902ce-be41-4008-9b22-cbef121156c7',

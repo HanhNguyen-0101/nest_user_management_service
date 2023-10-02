@@ -4,7 +4,7 @@ import { generate } from 'generate-password';
 import { Producer } from 'kafkajs';
 import { UsersService } from './users.service';
 import { requestPatterns } from '../utils/constants';
-import { RegisterUserDto } from '../auth/dto/register-user.dto';
+import { RegisterUserDto } from '../core/dtos/authDto/register-user.dto';
 
 const { tables, requests } = requestPatterns;
 

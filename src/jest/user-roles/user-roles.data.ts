@@ -1,6 +1,6 @@
-import { CreateUserRoleDto } from '../../user-roles/dto/create-user-role.dto';
-import { UpdateUserRoleDto } from '../../user-roles/dto/update-user-role.dto';
-import { FindCompositeKeyUserRoleDto } from '../../user-roles/dto/find-composite-key-user-role.dto';
+import { CreateUserRoleDto } from '../../core/dtos/userRoleDto/create-user-role.dto';
+import { UpdateUserRoleDto } from '../../core/dtos/userRoleDto/update-user-role.dto';
+import { FindCompositeKeyUserRoleDto } from '../../core/dtos/userRoleDto/find-composite-key-user-role.dto';
 
 export const mockUserRoles = {
   userId: '556dbf8e-5c8d-4a28-9da0-6a2916b8f193',

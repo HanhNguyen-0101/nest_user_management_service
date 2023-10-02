@@ -1,13 +1,13 @@
 import { Module, Inject, OnModuleDestroy } from '@nestjs/common';
 import { AuthService } from '../useCases/auth.service';
 import { AuthController } from '../controllers/auth.controller';
-import { UsersModule } from '../users/users.module';
+import { UsersModule } from './users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../utils/constants';
 import { User } from 'src/core/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRolesModule } from 'src/user-roles/user-roles.module';
-import { RolesModule } from 'src/roles/roles.module';
+import { UserRolesModule } from 'src/modules/user-roles.module';
+import { RolesModule } from 'src/modules/roles.module';
 import { KafkaProducerProvider } from 'src/providers/kafka-producer.provider';
 import { Producer } from 'kafkajs';
 

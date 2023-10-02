@@ -5,8 +5,8 @@ import { RolePermissionsController } from '../controllers/role-permissions.contr
 import { RolePermission } from '../core/entities/role-permission.entity';
 import { Role } from '../core/entities/role.entity';
 import { Permission } from '../core/entities/permission.entity';
-import { RolesModule } from '../roles/roles.module';
-import { PermissionsModule } from '../permissions/permissions.module';
+import { RolesModule } from './roles.module';
+import { PermissionsModule } from './permissions.module';
 
 @Module({
   imports: [

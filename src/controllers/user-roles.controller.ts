@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { UserRolesService } from '../useCases/user-roles.service';
-import { CreateUserRoleDto } from '../user-roles/dto/create-user-role.dto';
-import { FilterUserRoleDto } from '../user-roles/dto/filter-user-role.dto';
-import { FindCompositeKeyUserRoleDto } from '../user-roles/dto/find-composite-key-user-role.dto';
+import { CreateUserRoleDto } from '../core/dtos/userRoleDto/create-user-role.dto';
+import { FilterUserRoleDto } from '../core/dtos/userRoleDto/filter-user-role.dto';
+import { FindCompositeKeyUserRoleDto } from '../core/dtos/userRoleDto/find-composite-key-user-role.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { requestPatterns } from '../utils/constants';
 
