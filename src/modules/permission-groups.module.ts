@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PermissionGroupsService } from '../useCases/permission-groups.service';
+import { PermissionGroupsService } from '../useCases';
 import { PermissionGroupsController } from '../controllers';
 import { PermissionGroup } from '../core/entities';
 

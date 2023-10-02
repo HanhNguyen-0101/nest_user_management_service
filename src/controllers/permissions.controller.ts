@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { PermissionsService } from '../useCases/permissions.service';
+import { PermissionsService } from '../useCases';
 import { CreatePermissionDto } from '../core/dtos/permissionDto/create-permission.dto';
 import { UpdatePermissionDto } from '../core/dtos/permissionDto/update-permission.dto';
 import { FilterPermissionDto } from '../core/dtos/permissionDto/filter-permission.dto';

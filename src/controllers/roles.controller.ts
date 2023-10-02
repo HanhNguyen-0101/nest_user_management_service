@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { RolesService } from '../useCases/roles.service';
+import { RolesService } from '../useCases';
 import { CreateRoleDto } from '../core/dtos/roleDto/create-role.dto';
 import { UpdateRoleDto } from '../core/dtos/roleDto/update-role.dto';
 import { FilterRoleDto } from '../core/dtos/roleDto/filter-role.dto';

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RolePermissionsController } from '../../controllers';
-import { RolePermissionsService } from '../../useCases/role-permissions.service';
+import { RolePermissionsService } from '../../useCases';
 import {
   createRolePermissionsDto,
   mockRolePermissions,

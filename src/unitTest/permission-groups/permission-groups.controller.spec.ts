@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PermissionGroupsController } from '../../controllers';
-import { PermissionGroupsService } from '../../useCases/permission-groups.service';
+import { PermissionGroupsService } from '../../useCases';
 import {
   createPermissionGroupsDto,
   mockPermissionGroups,

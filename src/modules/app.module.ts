@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from '../controllers';
 import { User } from '../core/entities';
 import typeorm from '../frameworks/db/typeorm';
-import { AppService } from '../useCases/app.service';
+import { AppService } from '../useCases';
 import { AuthModule } from './auth.module';
 import { MenusModule } from './menus.module';
 import { PermissionGroupsModule } from './permission-groups.module';

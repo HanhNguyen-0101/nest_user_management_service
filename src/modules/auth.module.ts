@@ -7,7 +7,7 @@ import { RolesModule } from 'src/modules/roles.module';
 import { UserRolesModule } from 'src/modules/user-roles.module';
 import { AuthController } from '../controllers';
 import { User } from '../core/entities';
-import { AuthService } from '../useCases/auth.service';
+import { AuthService } from '../useCases';
 import { jwtConstants } from '../utils/constants';
 import { UsersModule } from './users.module';
 

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MenusController } from '../../controllers';
-import { MenusService } from '../../useCases/menus.service';
+import { MenusService } from '../../useCases';
 import { createMenuDto, mockMenu, updateMenu } from './menus.data';
 
 const mockMenuService = {

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from '../../controllers';
-import { AuthService } from '../../useCases/auth.service';
+import { AuthService } from '../../useCases';
 import { mockLogin, mockUsers } from './auth.data';
 
 const mockAuthService = {

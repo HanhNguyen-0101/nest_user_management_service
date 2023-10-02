@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RegisterUserDto } from '../core/dtos/authDto/register-user.dto';
-import { AuthService } from '../useCases/auth.service';
+import { AuthService } from '../useCases';
 import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;

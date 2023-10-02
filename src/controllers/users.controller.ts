@@ -4,7 +4,7 @@ import { requestPatterns } from '../utils/constants';
 import { CreateUserDto } from '../core/dtos/userDto/create-user.dto';
 import { FilterUserDto } from '../core/dtos/userDto/filter-user.dto';
 import { UpdateUserDto } from '../core/dtos/userDto/update-user.dto';
-import { UsersService } from '../useCases/users.service';
+import { UsersService } from '../useCases';
 
 const { tables, requests } = requestPatterns;
 const { users } = tables;
