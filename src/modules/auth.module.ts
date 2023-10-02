@@ -1,6 +1,6 @@
 import { Module, Inject, OnModuleDestroy } from '@nestjs/common';
 import { AuthService } from '../useCases/auth.service';
-import { AuthController } from '../controllers/auth.controller';
+import { AuthController } from '../controllers';
 import { UsersModule } from './users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../utils/constants';

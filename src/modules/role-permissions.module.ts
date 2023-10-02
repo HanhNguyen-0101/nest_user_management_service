@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RolePermissionsService } from '../useCases/role-permissions.service';
-import { RolePermissionsController } from '../controllers/role-permissions.controller';
+import { RolePermissionsController } from '../controllers';
 import { RolePermission } from '../core/entities/role-permission.entity';
 import { Role } from '../core/entities/role.entity';
 import { Permission } from '../core/entities/permission.entity';
