@@ -1,9 +1,11 @@
 import { Controller } from '@nestjs/common';
-import { RolesService } from '../useCases';
-import { CreateRoleDto } from '../core/dtos/roleDto/create-role.dto';
-import { UpdateRoleDto } from '../core/dtos/roleDto/update-role.dto';
-import { FilterRoleDto } from '../core/dtos/roleDto/filter-role.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  CreateRoleDto,
+  FilterRoleDto,
+  UpdateRoleDto,
+} from '../core/dtos/roleDto';
+import { RolesService } from '../useCases';
 import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;

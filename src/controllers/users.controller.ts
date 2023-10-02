@@ -1,10 +1,12 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { requestPatterns } from '../utils/constants';
-import { CreateUserDto } from '../core/dtos/userDto/create-user.dto';
-import { FilterUserDto } from '../core/dtos/userDto/filter-user.dto';
-import { UpdateUserDto } from '../core/dtos/userDto/update-user.dto';
+import {
+  CreateUserDto,
+  FilterUserDto,
+  UpdateUserDto,
+} from '../core/dtos/userDto';
 import { UsersService } from '../useCases';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { users } = tables;

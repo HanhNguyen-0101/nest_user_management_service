@@ -2,14 +2,16 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
+import { ILike, Repository } from 'typeorm';
+import {
+  CreateUserDto,
+  FilterUserDto,
+  UpdateUserDto,
+} from '../core/dtos/userDto';
+import { User } from '../core/entities';
+import { requestPatterns, roleUserNameDefault } from '../utils/constants';
 import { RolesService } from './roles.service';
 import { UserRolesService } from './user-roles.service';
-import { requestPatterns, roleUserNameDefault } from '../utils/constants';
-import { ILike, Repository } from 'typeorm';
-import { CreateUserDto } from '../core/dtos/userDto/create-user.dto';
-import { FilterUserDto } from '../core/dtos/userDto/filter-user.dto';
-import { UpdateUserDto } from '../core/dtos/userDto/update-user.dto';
-import { User } from '../core/entities';
 const { tables, requests } = requestPatterns;
 
 @Injectable()
@@ -102,7 +104,7 @@ export class UsersService {
     if (userRole && newUser) {
       await this.userRoleService.create({
         userId: newUser.id,
-        roleId: userRole.id
+        roleId: userRole.id,
       });
     }
     return newUser;

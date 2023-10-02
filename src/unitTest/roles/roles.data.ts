@@ -1,5 +1,4 @@
-import { CreateRoleDto } from '../../core/dtos/roleDto/create-role.dto';
-import { UpdateRoleDto } from '../../core/dtos/roleDto/update-role.dto';
+import { CreateRoleDto, UpdateRoleDto } from '../../core/dtos/roleDto';
 
 export const mockRoles = {
   id: '956fb209-6d4a-46da-b2e8-94c1c03fa420',

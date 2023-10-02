@@ -1,11 +1,13 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from '../utils/constants';
-import { CreateRolePermissionDto } from '../core/dtos/rolePermissionDto/create-role-permission.dto';
-import { FilterRolePermissionDto } from '../core/dtos/rolePermissionDto/filter-role-permission.dto';
-import { FindCompositeKeyRolePermissionDto } from '../core/dtos/rolePermissionDto/find-composite-key-role-permission.dto';
-import { UpdateRolePermissionDto } from '../core/dtos/rolePermissionDto/update-role-permission.dto';
+import {
+  CreateRolePermissionDto,
+  FilterRolePermissionDto,
+  FindCompositeKeyRolePermissionDto,
+  UpdateRolePermissionDto,
+} from '../core/dtos/rolePermissionDto';
 import { RolePermissionsService } from '../useCases';
+import { requestPatterns } from '../utils/constants';
 
 const { tables, requests } = requestPatterns;
 const { rolePermissions } = tables;

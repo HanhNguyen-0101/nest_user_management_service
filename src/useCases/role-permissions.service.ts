@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRolePermissionDto } from '../core/dtos/rolePermissionDto/create-role-permission.dto';
-import { UpdateRolePermissionDto } from '../core/dtos/rolePermissionDto/update-role-permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RolePermission } from '../core/entities';
 import { Repository } from 'typeorm';
-import { FilterRolePermissionDto } from '../core/dtos/rolePermissionDto/filter-role-permission.dto';
-import { FindCompositeKeyRolePermissionDto } from '../core/dtos/rolePermissionDto/find-composite-key-role-permission.dto';
+import {
+  CreateRolePermissionDto,
+  FilterRolePermissionDto,
+  FindCompositeKeyRolePermissionDto,
+  UpdateRolePermissionDto,
+} from '../core/dtos/rolePermissionDto';
+import { RolePermission } from '../core/entities';
 
 @Injectable()
 export class RolePermissionsService {

@@ -1,5 +1,4 @@
-import { CreateMenuDto } from '../../core/dtos/menuDto/create-menu.dto';
-import { UpdateMenuDto } from '../../core/dtos/menuDto/update-menu.dto';
+import { CreateMenuDto, UpdateMenuDto } from '../../core/dtos/menuDto';
 
 export const mockMenu = {
   id: 'f6f523ae-7942-44a5-b968-57bb7cf85264',

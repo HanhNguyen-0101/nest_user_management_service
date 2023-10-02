@@ -1,5 +1,4 @@
-import { CreateUserDto } from '../../core/dtos/userDto/create-user.dto';
-import { UpdateUserDto } from '../../core/dtos/userDto/update-User.dto';
+import { CreateUserDto, UpdateUserDto } from '../../core/dtos/userDto';
 
 export const mockUsers = {
   id: 'ed342390-3878-408d-810a-0e31c33f68c9',
