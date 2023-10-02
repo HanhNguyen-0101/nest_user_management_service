@@ -9,7 +9,7 @@ import { ILike, Repository } from 'typeorm';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { FilterUserDto } from '../users/dto/filter-user.dto';
 import { UpdateUserDto } from '../users/dto/update-user.dto';
-import { User } from '../entities/user.entity';
+import { User } from '../core/entities/user.entity';
 const { tables, requests } = requestPatterns;
 
 @Injectable()

@@ -12,7 +12,7 @@ import { RolePermissionsModule } from './role-permissions/role-permissions.modul
 import { PermissionsModule } from './permissions/permissions.module';
 import { PermissionGroupsModule } from './permission-groups/permission-groups.module';
 import { MenusModule } from './menus/menus.module';
-import { User } from './entities/user.entity';
+import { User } from './core/entities/user.entity';
 
 @Module({
   imports: [

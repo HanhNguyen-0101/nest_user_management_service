@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserRolesService } from '../../useCases/user-roles.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UserRole } from '../../entities/user-role.entity';
+import { UserRole } from '../../core/entities/user-role.entity';
 import {
   createUserRolesDto,
   mockUserRoles,
