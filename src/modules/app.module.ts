@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './controllers/app.controller';
-import { AppService } from './useCases/app.service';
+import { AppController } from '../controllers/app.controller';
+import { AppService } from '../useCases/app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import typeorm from './frameworks/db/typeorm';
-import { UsersModule } from './modules/users.module';
-import { AuthModule } from './modules/auth.module';
-import { RolesModule } from './modules/roles.module';
-import { UserRolesModule } from './modules/user-roles.module';
-import { RolePermissionsModule } from './modules/role-permissions.module';
-import { PermissionsModule } from './modules/permissions.module';
-import { PermissionGroupsModule } from './modules/permission-groups.module';
-import { MenusModule } from './modules/menus.module';
-import { User } from './core/entities/user.entity';
+import typeorm from '../frameworks/db/typeorm';
+import { UsersModule } from './users.module';
+import { AuthModule } from './auth.module';
+import { RolesModule } from './roles.module';
+import { UserRolesModule } from './user-roles.module';
+import { RolePermissionsModule } from './role-permissions.module';
+import { PermissionsModule } from './permissions.module';
+import { PermissionGroupsModule } from './permission-groups.module';
+import { MenusModule } from './menus.module';
+import { User } from '../core/entities/user.entity';
 
 @Module({
   imports: [
