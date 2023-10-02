@@ -8,7 +8,7 @@ import { User } from 'src/core/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRolesModule } from 'src/modules/user-roles.module';
 import { RolesModule } from 'src/modules/roles.module';
-import { KafkaProducerProvider } from 'src/providers/kafka-producer.provider';
+import { KafkaProducerProvider } from 'src/frameworks/providers/kafka-producer.provider';
 import { Producer } from 'kafkajs';
 
 @Module({

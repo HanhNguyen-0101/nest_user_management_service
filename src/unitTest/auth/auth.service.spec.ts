@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../../useCases/auth.service';
 import { UsersService } from '../../useCases/users.service';
-import { KafkaProducerProvider } from '../../providers/kafka-producer.provider';
+import { KafkaProducerProvider } from '../../frameworks/providers/kafka-producer.provider';
 import { JwtService } from '@nestjs/jwt';
 import { mockLogin, mockUsers } from './auth.data';
 

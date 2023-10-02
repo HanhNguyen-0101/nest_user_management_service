@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { KafkaProducerProvider } from '../../providers/kafka-producer.provider';
+import { KafkaProducerProvider } from '../../frameworks/providers/kafka-producer.provider';
 import { RolesService } from '../../useCases/roles.service';
 import { UserRolesService } from '../../useCases/user-roles.service';
 import { User } from '../../core/entities/user.entity';

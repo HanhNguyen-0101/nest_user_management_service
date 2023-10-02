@@ -1,6 +1,6 @@
 import { Transport, ClientProxyFactory } from '@nestjs/microservices';
 import { Producer } from 'kafkajs';
-import { microservicesConstants } from '../utils/constants';
+import { microservicesConstants } from '../../utils/constants';
 
 export const KafkaProducerProvider = {
   provide: 'KafkaProducer',
