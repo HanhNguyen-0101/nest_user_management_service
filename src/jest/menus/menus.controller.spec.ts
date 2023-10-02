@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MenusController } from '../../menus/menus.controller';
+import { MenusController } from '../../controllers/menus.controller';
 import { MenusService } from '../../useCases/menus.service';
 import { createMenuDto, mockMenu, updateMenu } from './menus.data';
 

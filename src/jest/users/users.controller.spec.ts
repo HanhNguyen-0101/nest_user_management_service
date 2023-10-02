@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersController } from '../../users/users.controller';
+import { UsersController } from '../../controllers/users.controller';
 import { UsersService } from '../../useCases/users.service';
 import {
   createUsersDto,

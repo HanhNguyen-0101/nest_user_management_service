@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { requestPatterns } from './../utils/constants';
-import { CreateMenuDto } from './dto/create-menu.dto';
-import { FilterMenuDto } from './dto/filter-menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
+import { requestPatterns } from '../utils/constants';
+import { CreateMenuDto } from '../menus/dto/create-menu.dto';
+import { FilterMenuDto } from '../menus/dto/filter-menu.dto';
+import { UpdateMenuDto } from '../menus/dto/update-menu.dto';
 import { MenusService } from '../useCases/menus.service';
 
 const { tables, requests } = requestPatterns;

@@ -3,7 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { User } from '../entities/user.entity';
 import { requestPatterns } from '../utils/constants';
 import { AuthService } from '../useCases/auth.service';
-import { RegisterUserDto } from './dto/register-user.dto';
+import { RegisterUserDto } from '../auth/dto/register-user.dto';
 
 const { tables, requests } = requestPatterns;
 const { auth } = tables;
