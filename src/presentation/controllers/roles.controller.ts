@@ -4,7 +4,7 @@ import {
   CreateRoleDto,
   FilterRoleDto,
   UpdateRoleDto,
-} from '../view-models/role';
+} from '../models/role';
 import { RolesService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

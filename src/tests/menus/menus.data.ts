@@ -1,7 +1,7 @@
 import {
   CreateMenuDto,
   UpdateMenuDto,
-} from '../../presentation/view-models/menu';
+} from '../../presentation/models/menu';
 
 export const mockMenu = {
   id: 'f6f523ae-7942-44a5-b968-57bb7cf85264',

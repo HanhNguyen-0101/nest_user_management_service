@@ -6,7 +6,7 @@ import {
   CreateRoleDto,
   FilterRoleDto,
   UpdateRoleDto,
-} from '../../presentation/view-models/role';
+} from '../../presentation/models/role';
 
 @Injectable()
 export class RolesService {

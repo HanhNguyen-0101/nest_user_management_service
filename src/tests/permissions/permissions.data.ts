@@ -1,7 +1,7 @@
 import {
   CreatePermissionDto,
   UpdatePermissionDto,
-} from '../../presentation/view-models/permission';
+} from '../../presentation/models/permission';
 
 export const mockPermissions = {
   id: '061902ce-be41-4008-9b22-cbef121156c7',

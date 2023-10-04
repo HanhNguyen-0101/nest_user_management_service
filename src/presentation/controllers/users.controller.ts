@@ -4,7 +4,7 @@ import {
   CreateUserDto,
   FilterUserDto,
   UpdateUserDto,
-} from '../view-models/user';
+} from '../models/user';
 import { UsersService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

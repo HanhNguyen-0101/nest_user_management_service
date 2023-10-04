@@ -1,4 +1,4 @@
-import { CreateRoleDto, UpdateRoleDto } from '../../presentation/view-models/role';
+import { CreateRoleDto, UpdateRoleDto } from '../../presentation/models/role';
 
 export const mockRoles = {
   id: '956fb209-6d4a-46da-b2e8-94c1c03fa420',

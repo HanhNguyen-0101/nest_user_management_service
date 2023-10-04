@@ -6,7 +6,7 @@ import {
   CreateMenuDto,
   FilterMenuDto,
   UpdateMenuDto,
-} from '../view-models/menu';
+} from '../models/menu';
 
 const { tables, requests } = requestPatterns;
 const { menu } = tables;

@@ -2,7 +2,7 @@ import {
   CreateRolePermissionDto,
   FindCompositeKeyRolePermissionDto,
   UpdateRolePermissionDto,
-} from '../../presentation/view-models/rolePermission';
+} from '../../presentation/models/rolePermission';
 
 export const mockRolePermissions = {
   roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',

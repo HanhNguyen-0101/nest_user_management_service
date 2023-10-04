@@ -5,7 +5,7 @@ import {
   FilterRolePermissionDto,
   FindCompositeKeyRolePermissionDto,
   UpdateRolePermissionDto,
-} from '../view-models/rolePermission';
+} from '../models/rolePermission';
 import { RolePermissionsService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

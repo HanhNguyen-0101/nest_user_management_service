@@ -6,7 +6,7 @@ import {
   CreateMenuDto,
   FilterMenuDto,
   UpdateMenuDto,
-} from '../../presentation/view-models/menu';
+} from '../../presentation/models/menu';
 
 @Injectable()
 export class MenusService {

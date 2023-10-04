@@ -7,7 +7,7 @@ import {
   FilterUserRoleDto,
   FindCompositeKeyUserRoleDto,
   UpdateUserRoleDto,
-} from '../../presentation/view-models/userRole';
+} from '../../presentation/models/userRole';
 
 @Injectable()
 export class UserRolesService {

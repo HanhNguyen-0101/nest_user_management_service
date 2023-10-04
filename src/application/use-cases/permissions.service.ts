@@ -6,7 +6,7 @@ import {
   CreatePermissionDto,
   FilterPermissionDto,
   UpdatePermissionDto,
-} from '../../presentation/view-models/permission';
+} from '../../presentation/models/permission';
 
 @Injectable()
 export class PermissionsService {

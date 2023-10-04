@@ -4,7 +4,7 @@ import {
   CreatePermissionGroupDto,
   FilterPermissionGroupDto,
   UpdatePermissionGroupDto,
-} from '../view-models/permissionGroup';
+} from '../models/permissionGroup';
 import { PermissionGroupsService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

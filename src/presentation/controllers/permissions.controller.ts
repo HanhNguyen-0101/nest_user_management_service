@@ -4,7 +4,7 @@ import {
   CreatePermissionDto,
   FilterPermissionDto,
   UpdatePermissionDto,
-} from '../view-models/permission';
+} from '../models/permission';
 import { PermissionsService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

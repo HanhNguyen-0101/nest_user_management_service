@@ -2,7 +2,7 @@ import {
   CreateUserRoleDto,
   FindCompositeKeyUserRoleDto,
   UpdateUserRoleDto,
-} from '../../presentation/view-models/userRole';
+} from '../../presentation/models/userRole';
 
 export const mockUserRoles = {
   userId: '556dbf8e-5c8d-4a28-9da0-6a2916b8f193',

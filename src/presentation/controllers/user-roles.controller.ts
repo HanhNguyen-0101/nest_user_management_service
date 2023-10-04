@@ -4,7 +4,7 @@ import {
   CreateUserRoleDto,
   FilterUserRoleDto,
   FindCompositeKeyUserRoleDto,
-} from '../view-models/userRole';
+} from '../models/userRole';
 import { UserRolesService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
 

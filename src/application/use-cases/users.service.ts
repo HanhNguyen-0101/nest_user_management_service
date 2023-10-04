@@ -8,7 +8,7 @@ import {
   CreateUserDto,
   FilterUserDto,
   UpdateUserDto,
-} from '../../presentation/view-models/user';
+} from '../../presentation/models/user';
 import { requestPatterns, roleUserNameDefault } from '../../utils/constants';
 import { RolesService } from './roles.service';
 import { UserRolesService } from './user-roles.service';

@@ -6,7 +6,7 @@ import {
   CreatePermissionGroupDto,
   FilterPermissionGroupDto,
   UpdatePermissionGroupDto,
-} from '../../presentation/view-models/permissionGroup';
+} from '../../presentation/models/permissionGroup';
 
 @Injectable()
 export class PermissionGroupsService {

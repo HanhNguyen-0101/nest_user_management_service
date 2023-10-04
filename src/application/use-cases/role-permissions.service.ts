@@ -7,7 +7,7 @@ import {
   FilterRolePermissionDto,
   FindCompositeKeyRolePermissionDto,
   UpdateRolePermissionDto,
-} from '../../presentation/view-models/rolePermission';
+} from '../../presentation/models/rolePermission';
 
 @Injectable()
 export class RolePermissionsService {
