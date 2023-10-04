@@ -1,4 +1,3 @@
-export * from './app.controller';
 export * from './auth.controller';
 export * from './menus.controller';
 export * from './permission-groups.controller';

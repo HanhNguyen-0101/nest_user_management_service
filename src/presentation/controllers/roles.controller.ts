@@ -1,12 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import {
-  CreateRoleDto,
-  FilterRoleDto,
-  UpdateRoleDto,
-} from '../models/role';
 import { RolesService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
+import { IFilterModel, IRoleModel } from '../models';
 
 const { tables, requests } = requestPatterns;
 const { roles } = tables;
@@ -17,7 +13,7 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @MessagePattern(`${roles}.${getAll}`)
-  async findAll(@Payload() query?: FilterRoleDto) {
+  async findAll(@Payload() query?: IFilterModel) {
     return await this.rolesService.findAll(query);
   }
 
@@ -32,12 +28,12 @@ export class RolesController {
   }
 
   @MessagePattern(`${roles}.${create}`)
-  async create(@Payload() role: CreateRoleDto) {
+  async create(@Payload() role: IRoleModel) {
     return await this.rolesService.create(role);
   }
 
   @MessagePattern(`${roles}.${update}`)
-  async update(@Payload() updateRole: { id: string; role: UpdateRoleDto }) {
+  async update(@Payload() updateRole: { id: string; role: IRoleModel }) {
     const { id, role } = updateRole;
     return await this.rolesService.update(id, role);
   }

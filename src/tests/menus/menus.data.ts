@@ -1,7 +1,4 @@
-import {
-  CreateMenuDto,
-  UpdateMenuDto,
-} from '../../presentation/models/menu';
+import { IMenuModel } from 'src/presentation/models';
 
 export const mockMenu = {
   id: 'f6f523ae-7942-44a5-b968-57bb7cf85264',
@@ -23,12 +20,12 @@ export const createMenuDto = {
   name: 'Mdm Vsl Cntr',
   key: 'mdm_vsl_cntr',
   parentId: 'efa99cdc-565d-418f-92ae-f1ed18e7828c',
-} as CreateMenuDto;
+} as IMenuModel;
 export const updateMenu = {
   id: 'f6f523ae-7942-44a5-b968-57bb7cf85264',
   updatedMenuDto: {
     name: 'Mdm Vsl Cntr',
     key: 'mdm_vsl_cntr',
     parentId: 'efa99cdc-565d-418f-92ae-f1ed18e7828c',
-  } as UpdateMenuDto,
+  } as IMenuModel,
 };

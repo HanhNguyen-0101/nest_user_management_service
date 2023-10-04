@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  ICompositeKeyUserRole,
+  IFilterModel,
+  IUserRoleModel,
+} from 'src/presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { UserRole } from '../../infrastructure/database/entities';
-import {
-  CreateUserRoleDto,
-  FilterUserRoleDto,
-  FindCompositeKeyUserRoleDto,
-  UpdateUserRoleDto,
-} from '../../presentation/models/userRole';
 
 @Injectable()
 export class UserRolesService {
@@ -16,7 +15,7 @@ export class UserRolesService {
     private userRoleRepository: Repository<UserRole>,
   ) {}
 
-  async findAll(query?: FilterUserRoleDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<any> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -60,7 +59,7 @@ export class UserRolesService {
     };
   }
 
-  async findOne(params: FindCompositeKeyUserRoleDto): Promise<UserRole> {
+  async findOne(params: ICompositeKeyUserRole): Promise<UserRole> {
     return await this.userRoleRepository.findOne({
       where: {
         userId: params.user_id,
@@ -73,13 +72,13 @@ export class UserRolesService {
     });
   }
 
-  async create(createUserRoleDto: CreateUserRoleDto): Promise<UserRole> {
+  async create(createUserRoleDto: IUserRoleModel): Promise<UserRole> {
     return await this.userRoleRepository.save(createUserRoleDto);
   }
 
   async update(
-    params: FindCompositeKeyUserRoleDto,
-    updateUserRoleDto: UpdateUserRoleDto,
+    params: ICompositeKeyUserRole,
+    updateUserRoleDto: IUserRoleModel,
   ): Promise<UserRole> {
     const { userId, roleId } = updateUserRoleDto;
     await this.userRoleRepository.update(
@@ -94,7 +93,7 @@ export class UserRolesService {
     });
   }
 
-  async delete(params: FindCompositeKeyUserRoleDto): Promise<string> {
+  async delete(params: ICompositeKeyUserRole): Promise<string> {
     await this.userRoleRepository.delete({
       roleId: params.role_id,
       userId: params.user_id,

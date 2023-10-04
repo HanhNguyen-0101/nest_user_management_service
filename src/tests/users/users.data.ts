@@ -1,4 +1,4 @@
-import { CreateUserDto, UpdateUserDto } from '../../presentation/models/user';
+import { IUserModel } from 'src/presentation/models';
 
 export const mockUsers = {
   id: 'ed342390-3878-408d-810a-0e31c33f68c9',
@@ -52,7 +52,7 @@ export const createUsersDto = {
   country: null,
   password: '123',
   isRegisteredWithGoogle: false,
-} as CreateUserDto;
+} as IUserModel;
 export const updateUsers = {
   id: 'ed342390-3878-408d-810a-0e31c33f68c9',
   updatedDto: {
@@ -67,5 +67,5 @@ export const updateUsers = {
     country: null,
     password: '123',
     isRegisteredWithGoogle: false,
-  } as UpdateUserDto,
+  } as IUserModel,
 };

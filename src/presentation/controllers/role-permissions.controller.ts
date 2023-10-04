@@ -1,13 +1,12 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import {
-  CreateRolePermissionDto,
-  FilterRolePermissionDto,
-  FindCompositeKeyRolePermissionDto,
-  UpdateRolePermissionDto,
-} from '../models/rolePermission';
 import { RolePermissionsService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
+import {
+  ICompositeKeyRolePermission,
+  IFilterModel,
+  IRolePermissionModel,
+} from '../models';
 
 const { tables, requests } = requestPatterns;
 const { rolePermissions } = tables;
@@ -20,20 +19,20 @@ export class RolePermissionsController {
   ) {}
 
   @MessagePattern(`${rolePermissions}.${getAll}`)
-  async findAll(@Payload() query?: FilterRolePermissionDto) {
+  async findAll(@Payload() query?: IFilterModel) {
     return await this.rolePermissionsService.findAll(query);
   }
 
   @MessagePattern(`${rolePermissions}.${getOneById}`)
   async findOne(
     @Payload()
-    params: FindCompositeKeyRolePermissionDto,
+    params: ICompositeKeyRolePermission,
   ) {
     return await this.rolePermissionsService.findOne(params);
   }
 
   @MessagePattern(`${rolePermissions}.${create}`)
-  async create(@Payload() createRolePermissionDto: CreateRolePermissionDto) {
+  async create(@Payload() createRolePermissionDto: IRolePermissionModel) {
     return await this.rolePermissionsService.create(createRolePermissionDto);
   }
 
@@ -41,8 +40,8 @@ export class RolePermissionsController {
   async update(
     @Payload()
     updateData: {
-      params: FindCompositeKeyRolePermissionDto;
-      updateRolePermissionDto: UpdateRolePermissionDto;
+      params: ICompositeKeyRolePermission;
+      updateRolePermissionDto: IRolePermissionModel;
     },
   ) {
     const { params, updateRolePermissionDto } = updateData;
@@ -53,7 +52,7 @@ export class RolePermissionsController {
   }
 
   @MessagePattern(`${rolePermissions}.${remove}`)
-  async delete(@Payload() params: FindCompositeKeyRolePermissionDto) {
+  async delete(@Payload() params: ICompositeKeyRolePermission) {
     return await this.rolePermissionsService.delete(params);
   }
 }

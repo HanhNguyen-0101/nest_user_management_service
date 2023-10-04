@@ -1,4 +1,4 @@
-import { CreateRoleDto, UpdateRoleDto } from '../../presentation/models/role';
+import { IRoleModel } from 'src/presentation/models';
 
 export const mockRoles = {
   id: '956fb209-6d4a-46da-b2e8-94c1c03fa420',
@@ -83,11 +83,11 @@ export const mockRolesAll = {
 export const createRolesDto = {
   name: 'user',
   description: 'User',
-} as CreateRoleDto;
+} as IRoleModel;
 export const updateRoles = {
   id: '956fb209-6d4a-46da-b2e8-94c1c03fa420',
   updatedDto: {
     name: 'user',
     description: 'User',
-  } as UpdateRoleDto,
+  } as IRoleModel,
 };

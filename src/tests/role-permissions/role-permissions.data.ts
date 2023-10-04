@@ -1,8 +1,7 @@
 import {
-  CreateRolePermissionDto,
-  FindCompositeKeyRolePermissionDto,
-  UpdateRolePermissionDto,
-} from '../../presentation/models/rolePermission';
+  ICompositeKeyRolePermission,
+  IRolePermissionModel,
+} from 'src/presentation/models';
 
 export const mockRolePermissions = {
   roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',
@@ -36,14 +35,14 @@ export const mockRolePermissionsAll = {
 export const createRolePermissionsDto = {
   roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',
   permissionId: '48e2dd8a-eee3-47e1-abf6-fc3e4d34f169',
-} as CreateRolePermissionDto;
+} as IRolePermissionModel;
 export const updateRolePermissions = {
   params: {
     role_id: '534442c7-27eb-44f4-96da-90a6b523c60b',
     permission_id: '48e2dd8a-eee3-47e1-abf6-fc3e4d34f169',
-  } as FindCompositeKeyRolePermissionDto,
+  } as ICompositeKeyRolePermission,
   updatedDto: {
     roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',
     permissionId: '48e2dd8a-eee3-47e1-abf6-fc3e4d34f169',
-  } as UpdateRolePermissionDto,
+  } as IRolePermissionModel,
 };

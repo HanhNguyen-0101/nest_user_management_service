@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { generate } from 'generate-password';
 import { Producer } from 'kafkajs';
-import { RegisterUserDto } from '../../presentation/models/auth';
 import { requestPatterns } from '../../utils/constants';
 import { UsersService } from './users.service';
+import { IUserModel } from 'src/presentation/models';
+import { User } from 'src/infrastructure/database/entities';
 
 const { tables, requests } = requestPatterns;
 
@@ -17,7 +18,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async resetPassword(user: any) {
+  async resetPassword(user: IUserModel) {
     const newPassword = generate({
       numbers: true,
     });
@@ -36,7 +37,7 @@ export class AuthService {
     return newUser;
   }
 
-  async login(user: any) {
+  async login(user: IUserModel) {
     const accessToken = await this.generateToken({
       id: user.id,
       email: user.email,
@@ -48,7 +49,7 @@ export class AuthService {
     };
   }
 
-  async register(registerUserDto: RegisterUserDto): Promise<any> {
+  async register(registerUserDto: IUserModel): Promise<User> {
     const newUser = await this.userService.create({
       ...registerUserDto,
       updatedBy: null,
@@ -56,12 +57,12 @@ export class AuthService {
     return newUser;
   }
 
-  async googleRegister(registerUser): Promise<any> {
+  async googleRegister(registerUser: IUserModel): Promise<User> {
     const newUser = await this.userService.create(registerUser);
     return newUser;
   }
 
-  async googleLogin(user) {
+  async googleLogin(user: IUserModel) {
     const accessToken = await this.generateToken({
       id: user.id,
       email: user.email,

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  ICompositeKeyRolePermission,
+  IFilterModel,
+  IGetAllRolePermission,
+  IRolePermissionModel,
+} from 'src/presentation/models';
 import { Repository } from 'typeorm';
 import { RolePermission } from '../../infrastructure/database/entities';
-import {
-  CreateRolePermissionDto,
-  FilterRolePermissionDto,
-  FindCompositeKeyRolePermissionDto,
-  UpdateRolePermissionDto,
-} from '../../presentation/models/rolePermission';
 
 @Injectable()
 export class RolePermissionsService {
@@ -16,7 +16,7 @@ export class RolePermissionsService {
     private rolePermissionRepository: Repository<RolePermission>,
   ) {}
 
-  async findAll(query?: FilterRolePermissionDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllRolePermission> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -44,9 +44,7 @@ export class RolePermissionsService {
     };
   }
 
-  async findOne(
-    params: FindCompositeKeyRolePermissionDto,
-  ): Promise<RolePermission> {
+  async findOne(params: ICompositeKeyRolePermission): Promise<RolePermission> {
     return await this.rolePermissionRepository.findOne({
       where: {
         roleId: params.role_id,
@@ -60,14 +58,14 @@ export class RolePermissionsService {
   }
 
   async create(
-    createRolePermissionDto: CreateRolePermissionDto,
+    createRolePermissionDto: IRolePermissionModel,
   ): Promise<RolePermission> {
     return await this.rolePermissionRepository.save(createRolePermissionDto);
   }
 
   async update(
-    params: FindCompositeKeyRolePermissionDto,
-    updateRolePermissionDto: UpdateRolePermissionDto,
+    params: ICompositeKeyRolePermission,
+    updateRolePermissionDto: IRolePermissionModel,
   ): Promise<RolePermission> {
     const { permissionId, roleId } = updateRolePermissionDto;
 
@@ -83,7 +81,7 @@ export class RolePermissionsService {
     });
   }
 
-  async delete(params: FindCompositeKeyRolePermissionDto): Promise<string> {
+  async delete(params: ICompositeKeyRolePermission): Promise<string> {
     await this.rolePermissionRepository.delete({
       roleId: params.role_id,
       permissionId: params.permission_id,

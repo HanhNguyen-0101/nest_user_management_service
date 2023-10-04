@@ -1,12 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IFilterModel, IGetAllRole, IRoleModel } from 'src/presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { Role } from '../../infrastructure/database/entities';
-import {
-  CreateRoleDto,
-  FilterRoleDto,
-  UpdateRoleDto,
-} from '../../presentation/models/role';
 
 @Injectable()
 export class RolesService {
@@ -15,7 +11,7 @@ export class RolesService {
     private roleRepository: Repository<Role>,
   ) {}
 
-  async findAll(query?: FilterRoleDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllRole> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -70,11 +66,11 @@ export class RolesService {
   async findOneByName(name: string): Promise<Role> {
     return await this.roleRepository.findOneBy({ name });
   }
-  async create(role: CreateRoleDto): Promise<Role> {
+  async create(role: IRoleModel): Promise<Role> {
     return await this.roleRepository.save(role);
   }
 
-  async update(id: string, role: UpdateRoleDto): Promise<Role> {
+  async update(id: string, role: IRoleModel): Promise<Role> {
     await this.roleRepository.update(id, role);
     return await this.roleRepository.findOne({ where: { id } });
   }

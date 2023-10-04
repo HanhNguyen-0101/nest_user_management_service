@@ -1,12 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import {
-  CreateUserDto,
-  FilterUserDto,
-  UpdateUserDto,
-} from '../models/user';
 import { UsersService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
+import { IFilterModel, IUserModel } from '../models';
 
 const { tables, requests } = requestPatterns;
 const { users } = tables;
@@ -17,7 +13,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @MessagePattern(`${users}.${getAll}`)
-  async findAll(query?: FilterUserDto) {
+  async findAll(query?: IFilterModel) {
     return await this.usersService.findAll(query);
   }
 
@@ -32,12 +28,12 @@ export class UsersController {
   }
 
   @MessagePattern(`${users}.${create}`)
-  async create(user: CreateUserDto) {
+  async create(user: IUserModel) {
     return await this.usersService.create(user);
   }
 
   @MessagePattern(`${users}.${update}`)
-  async update(updateUser: { id: string; user: UpdateUserDto }) {
+  async update(updateUser: { id: string; user: IUserModel }) {
     return await this.usersService.update(updateUser.id, updateUser.user);
   }
 

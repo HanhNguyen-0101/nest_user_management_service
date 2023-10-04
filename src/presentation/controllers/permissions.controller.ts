@@ -1,12 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import {
-  CreatePermissionDto,
-  FilterPermissionDto,
-  UpdatePermissionDto,
-} from '../models/permission';
 import { PermissionsService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
+import { IFilterModel, IPermissionModel } from '../models';
 
 const { tables, requests } = requestPatterns;
 const { permissions } = tables;
@@ -17,7 +13,7 @@ export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
 
   @MessagePattern(`${permissions}.${getAll}`)
-  async findAll(@Payload() query?: FilterPermissionDto) {
+  async findAll(@Payload() query?: IFilterModel) {
     return await this.permissionsService.findAll(query);
   }
 
@@ -32,7 +28,7 @@ export class PermissionsController {
   }
 
   @MessagePattern(`${permissions}.${create}`)
-  async create(@Payload() createPermissionDto: CreatePermissionDto) {
+  async create(@Payload() createPermissionDto: IPermissionModel) {
     return await this.permissionsService.create(createPermissionDto);
   }
 
@@ -41,7 +37,7 @@ export class PermissionsController {
     @Payload()
     updateData: {
       id: string;
-      permission: UpdatePermissionDto;
+      permission: IPermissionModel;
     },
   ) {
     const { id, permission } = updateData;

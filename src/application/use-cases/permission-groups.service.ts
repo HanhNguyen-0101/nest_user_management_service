@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  IFilterModel,
+  IGetAllPermissionGroup,
+  IPermissionGroupModel,
+} from 'src/presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { PermissionGroup } from '../../infrastructure/database/entities';
-import {
-  CreatePermissionGroupDto,
-  FilterPermissionGroupDto,
-  UpdatePermissionGroupDto,
-} from '../../presentation/models/permissionGroup';
 
 @Injectable()
 export class PermissionGroupsService {
@@ -14,7 +14,7 @@ export class PermissionGroupsService {
     @InjectRepository(PermissionGroup)
     private permissionGroupRepository: Repository<PermissionGroup>,
   ) {}
-  async findAll(query?: FilterPermissionGroupDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllPermissionGroup> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -57,14 +57,14 @@ export class PermissionGroupsService {
   }
 
   async create(
-    permissionGroup: CreatePermissionGroupDto,
+    permissionGroup: IPermissionGroupModel,
   ): Promise<PermissionGroup> {
     return await this.permissionGroupRepository.save(permissionGroup);
   }
 
   async update(
     id: string,
-    permissionGroup: UpdatePermissionGroupDto,
+    permissionGroup: IPermissionGroupModel,
   ): Promise<PermissionGroup> {
     await this.permissionGroupRepository.update(id, permissionGroup);
     return await this.permissionGroupRepository.findOne({ where: { id } });

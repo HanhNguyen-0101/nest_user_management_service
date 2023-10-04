@@ -2,11 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Menu } from '../../infrastructure/database/entities';
-import {
-  CreateMenuDto,
-  FilterMenuDto,
-  UpdateMenuDto,
-} from '../../presentation/models/menu';
+import { IFilterModel, IGetAllMenu, IMenuModel } from 'src/presentation/models';
 
 @Injectable()
 export class MenusService {
@@ -15,7 +11,7 @@ export class MenusService {
     private menuRepository: Repository<Menu>,
   ) {}
 
-  async findAll(query?: FilterMenuDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllMenu> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -58,11 +54,11 @@ export class MenusService {
     return await this.menuRepository.findOneBy({ key });
   }
 
-  async create(createMenuDto: CreateMenuDto): Promise<Menu> {
+  async create(createMenuDto: IMenuModel): Promise<Menu> {
     return await this.menuRepository.save(createMenuDto);
   }
 
-  async update(id: string, updateMenuDto: UpdateMenuDto): Promise<Menu> {
+  async update(id: string, updateMenuDto: IMenuModel): Promise<Menu> {
     await this.menuRepository.update(id, updateMenuDto);
     return await this.menuRepository.findOne({ where: { id } });
   }

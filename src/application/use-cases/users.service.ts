@@ -2,13 +2,9 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
+import { IFilterModel, IGetAllUser, IUserModel } from 'src/presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { User } from '../../infrastructure/database/entities';
-import {
-  CreateUserDto,
-  FilterUserDto,
-  UpdateUserDto,
-} from '../../presentation/models/user';
 import { requestPatterns, roleUserNameDefault } from '../../utils/constants';
 import { RolesService } from './roles.service';
 import { UserRolesService } from './user-roles.service';
@@ -26,7 +22,7 @@ export class UsersService {
     private roleService: RolesService,
   ) {}
 
-  async findAll(query?: FilterUserDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllUser> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -86,7 +82,7 @@ export class UsersService {
     return await this.userRepository.findOneBy({ email });
   }
 
-  async create(user: CreateUserDto): Promise<User> {
+  async create(user: IUserModel): Promise<User> {
     const hashPassword = await this.hashPassword(user.password);
     const newUser = await this.userRepository.save({
       ...user,
@@ -110,7 +106,7 @@ export class UsersService {
     return newUser;
   }
 
-  async update(id: string, user: UpdateUserDto): Promise<User> {
+  async update(id: string, user: IUserModel): Promise<User> {
     const userExist = await this.userRepository.findOneBy({ id });
     const isPasswordMatching =
       user.password === userExist.password

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  IFilterModel,
+  IGetAllPermission,
+  IPermissionModel,
+} from 'src/presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { Permission } from '../../infrastructure/database/entities';
-import {
-  CreatePermissionDto,
-  FilterPermissionDto,
-  UpdatePermissionDto,
-} from '../../presentation/models/permission';
 
 @Injectable()
 export class PermissionsService {
@@ -14,7 +14,7 @@ export class PermissionsService {
     @InjectRepository(Permission)
     private permissionRepository: Repository<Permission>,
   ) {}
-  async findAll(query?: FilterPermissionDto): Promise<any> {
+  async findAll(query?: IFilterModel): Promise<IGetAllPermission> {
     const page = query && query.page ? Number(query.page) : 1;
     const itemPerPage =
       query && query.item_per_page ? Number(query.item_per_page) : 10;
@@ -69,14 +69,11 @@ export class PermissionsService {
     });
   }
 
-  async create(createPermissionDto: CreatePermissionDto): Promise<Permission> {
+  async create(createPermissionDto: IPermissionModel): Promise<Permission> {
     return await this.permissionRepository.save(createPermissionDto);
   }
 
-  async update(
-    id: string,
-    permission: UpdatePermissionDto,
-  ): Promise<Permission> {
+  async update(id: string, permission: IPermissionModel): Promise<Permission> {
     await this.permissionRepository.update(id, permission);
     return await this.permissionRepository.findOne({ where: { id } });
   }

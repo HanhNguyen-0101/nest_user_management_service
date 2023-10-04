@@ -1,12 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import {
-  CreateUserRoleDto,
-  FilterUserRoleDto,
-  FindCompositeKeyUserRoleDto,
-} from '../models/userRole';
 import { UserRolesService } from '../../application/use-cases';
 import { requestPatterns } from '../../utils/constants';
+import { ICompositeKeyUserRole, IFilterModel, IUserRoleModel } from '../models';
 
 const { tables, requests } = requestPatterns;
 const { userRoles } = tables;
@@ -17,28 +13,34 @@ export class UserRolesController {
   constructor(private readonly userRolesService: UserRolesService) {}
 
   @MessagePattern(`${userRoles}.${getAll}`)
-  async findAll(@Payload() query?: FilterUserRoleDto) {
+  async findAll(@Payload() query?: IFilterModel) {
     return await this.userRolesService.findAll(query);
   }
 
   @MessagePattern(`${userRoles}.${getOneById}`)
-  async findOne(@Payload() params: FindCompositeKeyUserRoleDto) {
+  async findOne(@Payload() params: ICompositeKeyUserRole) {
     return await this.userRolesService.findOne(params);
   }
 
   @MessagePattern(`${userRoles}.${create}`)
-  async create(@Payload() createUserRoleDto: CreateUserRoleDto) {
+  async create(@Payload() createUserRoleDto: IUserRoleModel) {
     return await this.userRolesService.create(createUserRoleDto);
   }
 
   @MessagePattern(`${userRoles}.${update}`)
-  async update(@Payload() updateData) {
+  async update(
+    @Payload()
+    updateData: {
+      params: ICompositeKeyUserRole;
+      updateUserRoleDto: IUserRoleModel;
+    },
+  ) {
     const { params, updateUserRoleDto } = updateData;
     return await this.userRolesService.update(params, updateUserRoleDto);
   }
 
   @MessagePattern(`${userRoles}.${remove}`)
-  async delete(@Payload() params: FindCompositeKeyUserRoleDto) {
+  async delete(@Payload() params: ICompositeKeyUserRole) {
     return await this.userRolesService.delete(params);
   }
 }

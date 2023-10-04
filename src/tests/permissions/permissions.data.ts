@@ -1,7 +1,4 @@
-import {
-  CreatePermissionDto,
-  UpdatePermissionDto,
-} from '../../presentation/models/permission';
+import { IPermissionModel } from 'src/presentation/models';
 
 export const mockPermissions = {
   id: '061902ce-be41-4008-9b22-cbef121156c7',
@@ -48,7 +45,7 @@ export const createPermissionsDto = {
   description: '123',
   code: '321',
   permissionGroupId: '32d888c2-186c-4f35-838e-3dad76739de8',
-} as CreatePermissionDto;
+} as IPermissionModel;
 export const updatePermissions = {
   id: '061902ce-be41-4008-9b22-cbef121156c7',
   updatedPermissionsDto: {
@@ -56,5 +53,5 @@ export const updatePermissions = {
     description: '123',
     code: '321',
     permissionGroupId: '32d888c2-186c-4f35-838e-3dad76739de8',
-  } as UpdatePermissionDto,
+  } as IPermissionModel,
 };

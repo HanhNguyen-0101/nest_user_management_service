@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from './application/use-cases';
 import typeorm from './infrastructure/database/configDB/typeorm';
 import { User } from './infrastructure/database/entities';
 import { AuthModule } from './infrastructure/modules/auth.module';
@@ -12,7 +11,6 @@ import { RolePermissionsModule } from './infrastructure/modules/role-permissions
 import { RolesModule } from './infrastructure/modules/roles.module';
 import { UserRolesModule } from './infrastructure/modules/user-roles.module';
 import { UsersModule } from './infrastructure/modules/users.module';
-import { AppController } from './presentation/controllers';
 
 @Module({
   imports: [
@@ -35,7 +33,5 @@ import { AppController } from './presentation/controllers';
     PermissionGroupsModule,
     MenusModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
