@@ -1,4 +1,4 @@
-import { IUserModel } from 'src/presentation/models';
+import { IUserModel } from '../../presentation/models';
 
 export const mockUsers = {
   id: 'ed342390-3878-408d-810a-0e31c33f68c9',

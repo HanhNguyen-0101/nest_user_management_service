@@ -4,8 +4,8 @@ import { generate } from 'generate-password';
 import { Producer } from 'kafkajs';
 import { requestPatterns } from '../../utils/constants';
 import { UsersService } from './users.service';
-import { IUserModel } from 'src/presentation/models';
-import { User } from 'src/infrastructure/database/entities';
+import { IUserModel } from '../../presentation/models';
+import { User } from '../../infrastructure/database/entities';
 
 const { tables, requests } = requestPatterns;
 

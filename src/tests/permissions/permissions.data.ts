@@ -1,4 +1,4 @@
-import { IPermissionModel } from 'src/presentation/models';
+import { IPermissionModel } from '../../presentation/models';
 
 export const mockPermissions = {
   id: '061902ce-be41-4008-9b22-cbef121156c7',

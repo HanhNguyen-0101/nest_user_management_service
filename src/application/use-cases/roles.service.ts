@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IFilterModel, IGetAllRole, IRoleModel } from 'src/presentation/models';
+import { IFilterModel, IGetAllRole, IRoleModel } from '../../presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { Role } from '../../infrastructure/database/entities';
 

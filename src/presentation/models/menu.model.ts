@@ -1,4 +1,4 @@
-import { Menu } from 'src/infrastructure/database/entities';
+import { Menu } from '../../infrastructure/database/entities';
 
 export interface IMenuModel {
   id?: string;

@@ -1,4 +1,4 @@
-import { User } from 'src/infrastructure/database/entities';
+import { User } from '../../infrastructure/database/entities';
 
 export interface IUserModel {
   email: string;

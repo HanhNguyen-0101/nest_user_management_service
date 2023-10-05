@@ -1,4 +1,4 @@
-import { IPermissionGroupModel } from 'src/presentation/models';
+import { IPermissionGroupModel } from '../../presentation/models';
 
 export const mockPermissionGroups = {
   id: '32d888c2-186c-4f35-838e-3dad76739de8',

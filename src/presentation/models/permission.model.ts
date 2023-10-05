@@ -1,4 +1,4 @@
-import { Permission } from 'src/infrastructure/database/entities';
+import { Permission } from '../../infrastructure/database/entities';
 import { IPermissionGroupModel } from './permission-group.model';
 
 export interface IPermissionModel {

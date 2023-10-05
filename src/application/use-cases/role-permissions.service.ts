@@ -5,7 +5,7 @@ import {
   IFilterModel,
   IGetAllRolePermission,
   IRolePermissionModel,
-} from 'src/presentation/models';
+} from '../../presentation/models';
 import { Repository } from 'typeorm';
 import { RolePermission } from '../../infrastructure/database/entities';
 

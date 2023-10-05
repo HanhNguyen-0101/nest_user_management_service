@@ -1,4 +1,4 @@
-import { IRoleModel } from 'src/presentation/models';
+import { IRoleModel } from '../../presentation/models';
 
 export const mockRoles = {
   id: '956fb209-6d4a-46da-b2e8-94c1c03fa420',

@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { KafkaProducerProvider } from '../../frameworks/providers/kafka-producer.provider';
-import { RolesService } from '../../application/use-cases';
-import { UserRolesService } from '../../application/use-cases';
+import { KafkaProducerProvider } from '../../infrastructure/database/providers/kafka-producer.provider';
+import {
+  RolesService,
+  UserRolesService,
+  UsersService,
+} from '../../application/use-cases';
 import { User } from '../../infrastructure/database/entities';
-import { UsersService } from '../../application/use-cases';
-import { createUsersDto, mockUsers, mockUsersAll } from './users.data';
+import { mockUsers, mockUsersAll } from './users.data';
 
 const mockUsersService = {
   findAndCount: jest.fn(),

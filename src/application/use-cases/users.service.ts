@@ -2,7 +2,7 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Producer } from 'kafkajs';
-import { IFilterModel, IGetAllUser, IUserModel } from 'src/presentation/models';
+import { IFilterModel, IGetAllUser, IUserModel } from '../../presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { User } from '../../infrastructure/database/entities';
 import { requestPatterns, roleUserNameDefault } from '../../utils/constants';

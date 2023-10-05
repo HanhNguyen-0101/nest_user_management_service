@@ -1,4 +1,4 @@
-import { IMenuModel } from 'src/presentation/models';
+import { IMenuModel } from '../../presentation/models';
 
 export const mockMenu = {
   id: 'f6f523ae-7942-44a5-b968-57bb7cf85264',

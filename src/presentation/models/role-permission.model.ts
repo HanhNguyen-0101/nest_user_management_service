@@ -1,4 +1,4 @@
-import { RolePermission } from 'src/infrastructure/database/entities';
+import { RolePermission } from '../../infrastructure/database/entities';
 import { IPermissionModel } from './permission.model';
 import { IRoleModel } from './role.model';
 

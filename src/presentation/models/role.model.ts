@@ -1,4 +1,4 @@
-import { Role } from 'src/infrastructure/database/entities';
+import { Role } from '../../infrastructure/database/entities';
 import { IUserModel } from './user.model';
 
 export interface IRoleModel {

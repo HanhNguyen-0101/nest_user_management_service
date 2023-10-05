@@ -1,4 +1,7 @@
-import { ICompositeKeyUserRole, IUserRoleModel } from 'src/presentation/models';
+import {
+  ICompositeKeyUserRole,
+  IUserRoleModel,
+} from '../../presentation/models';
 
 export const mockUserRoles = {
   userId: '556dbf8e-5c8d-4a28-9da0-6a2916b8f193',

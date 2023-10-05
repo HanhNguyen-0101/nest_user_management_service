@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Menu } from '../../infrastructure/database/entities';
-import { IFilterModel, IGetAllMenu, IMenuModel } from 'src/presentation/models';
+import {
+  IFilterModel,
+  IGetAllMenu,
+  IMenuModel,
+} from '../../presentation/models';
 
 @Injectable()
 export class MenusService {

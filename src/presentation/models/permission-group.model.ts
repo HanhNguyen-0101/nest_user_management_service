@@ -1,4 +1,4 @@
-import { PermissionGroup } from 'src/infrastructure/database/entities';
+import { PermissionGroup } from '../../infrastructure/database/entities';
 
 export interface IPermissionGroupModel {
   id?: string;

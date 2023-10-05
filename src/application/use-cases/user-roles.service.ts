@@ -4,7 +4,7 @@ import {
   ICompositeKeyUserRole,
   IFilterModel,
   IUserRoleModel,
-} from 'src/presentation/models';
+} from '../../presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { UserRole } from '../../infrastructure/database/entities';
 

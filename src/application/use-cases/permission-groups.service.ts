@@ -4,7 +4,7 @@ import {
   IFilterModel,
   IGetAllPermissionGroup,
   IPermissionGroupModel,
-} from 'src/presentation/models';
+} from '../../presentation/models';
 import { ILike, Repository } from 'typeorm';
 import { PermissionGroup } from '../../infrastructure/database/entities';
 

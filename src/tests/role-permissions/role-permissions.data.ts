@@ -1,7 +1,7 @@
 import {
   ICompositeKeyRolePermission,
   IRolePermissionModel,
-} from 'src/presentation/models';
+} from '../../presentation/models';
 
 export const mockRolePermissions = {
   roleId: '534442c7-27eb-44f4-96da-90a6b523c60b',

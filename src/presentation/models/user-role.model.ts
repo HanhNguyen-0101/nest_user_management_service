@@ -1,4 +1,4 @@
-import { UserRole } from 'src/infrastructure/database/entities';
+import { UserRole } from '../../infrastructure/database/entities';
 import { IRoleModel } from './role.model';
 import { IUserModel } from './user.model';
 
